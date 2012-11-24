@@ -1,0 +1,932 @@
+// ----- Layout Defaults -------------------- //
+$header-main-height: 60px !default;
+$ribbon-selector-height: 60px !default;
+
+$ribbon-height: 60px !default;
+$side-filter-bar-height:40px !default;
+$subheader-main-height: 40px !default;
+$footer-main-height: 40px !default; 
+
+$max-page-width: 0 !default;
+$min-page-width: 0 !default;
+$page-width: 0 !default;
+
+/* Added to fix awful HTML wrapping */
+table.page-content td.dummy-td{
+    width:1px;
+}
+
+// ------------------------------------------ //
+
+html,body {
+    height: 100%; 
+    max-height: 100%; 
+    overflow: hidden; 
+    padding: 0; 
+    margin: 0; 
+    border: 0;
+}
+
+#wrapper {
+    margin: 0 auto;
+    border: solid #999;
+    border-color: rgba(0,0,0,.2);
+    border-width: 0;
+    position: relative; 
+    height: 100%;
+
+    @if $max-page-width > 0 { max-width: $max-page-width; }
+    @if $min-page-width > 0 { min-width: $min-page-width; }
+    @if $page-width > 0 { border-width: 0 1px; width: $page-width; }
+
+    /* Uncomment for shadow surrounding content */
+    /* box-shadow: 0 0 40px rgba(0,0,0,.2); */
+}
+
+.full-screen-mode #header-page{
+    height: 1px !important;
+    overflow: hidden;
+}
+.full-screen-mode #footer-page{
+    height: 1px !important;
+    overflow: hidden;
+}
+
+// ----- Header ----- //
+    #header-main {  
+        position: absolute; 
+        margin: 0; 
+        top: 0; 
+        left: 0; 
+        display: block; 
+        width: 100%; 
+        height: $header-main-height; 
+        // background: #fff;
+        z-index: 7; 
+        overflow: hidden; 
+        color: #fff;
+    }
+    
+    .show-ribbon #header-main {
+        height: $header-main-height + $ribbon-height; 
+    }
+    
+    .full-screen-mode #header-main{
+        display:none;
+    }
+    
+    #header-main .inner {
+        padding: 10px;
+    }
+    
+    
+/* ----- Subheader ----- */
+    #subheader-main {
+        position: absolute; 
+        margin: 0; 
+        top: $header-main-height; 
+        left: 0; 
+        display: block; 
+        width: 100%; 
+        height: $subheader-main-height; 
+        z-index: 6; 
+        overflow: visible; 
+        color: #fff;
+        border-style: solid;
+        background-color: #036;
+/*
+        border-color: #ccc;
+        border-color: rgba(255,255,255,.75);
+        border-top-color: rgba(0,0,0,.5);
+        border-width: 0;
+        background: #181d25 center center;
+        @include background-image-with-gradient( 
+            bottom, rgba(0,0,0,.15), 15%, 
+            rgba(255,255,255,.15), 85%, 
+            "/theme/img/subhead-background.png" 
+        );
+*/
+        box-shadow: 0px 5px 5px rgba(0,0,0,.25);
+
+        @include transition-property(top);
+          @include transition-duration(.25s);
+    }
+    
+    .full-screen-mode #subheader-main{
+        top:0;
+    }
+    
+    .show-ribbon #subheader-main {
+        top: $header-main-height + $ribbon-height;
+    }
+    
+    #subheader-main .inner {
+        height:40px;
+        font-size: 16px;
+        float:left;
+    }
+
+    /* LEFT */
+    #subheader-main #subheader-left {
+        float: left;
+        width: 200px;
+        height: 40px;
+        overflow: visible;        
+        position:absolute;
+        z-index:99;
+
+        @include transition-property(width);
+          @include transition-duration(.20s);
+    }
+    
+    #subheader-main #subheader-left button.collapse {
+        height: 26px;
+        width: 26px;
+        top: 40px;
+        left: 199px;
+        margin: 0;
+        position: absolute;
+        z-index: 0;
+        background: none repeat scroll 0 0 #EEEEEE;
+        border: 1px solid #999999;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+        border-radius: 3px;
+        padding: 0px;
+    }
+    .collapse-sidebar #subheader-main  #subheader-left button.collapse{
+        left:1px;
+    }
+
+
+    .collapse-sidebar #left-sidebar .add{
+        display:none;
+    }
+
+    .collapse-sidebar #subheader-main #subheader-left{
+        width:0;
+    }
+    
+    /* MAIN */
+    #subheader-main #subheader-main-content {
+        margin-left: 200px;
+        height: 40px;
+    }
+
+    #subheader-main h1 {
+        margin: -7px 10px 0 0;
+        float: right;
+        font-size: 60px;
+        line-height: 56px;
+        font-weight: normal;
+        font-family: 'ProximaNovaThin', $font-fallback;
+        color: #fff;
+        color: rgba( 255,255,255,.9 );
+        font-variant:small-caps;
+    }
+
+    #subheader-main button {
+        @include button3( $button-color );
+        margin-top: 7px;
+        margin-left: 10px;
+        margin-left: 10px;
+        border-radius:0px 0px 5px 0px;
+    }
+    
+    #subheader-main button.collapse span {
+        padding-left: 0;
+        background-image: url(/theme/img/sprites_12-2.png);
+        background-position: -110px -38px;
+        color: rgba(0,0,0,.01);
+        width: 20px;
+        height: 18px;              
+    }
+
+    .collapse-sidebar #subheader-main button.collapse span {
+        padding-left: 0;
+        background-image: url(/theme/img/sprites_12-2.png);
+        background-position: -110px -8px;;
+        background-repeat: no-repeat;
+        color: rgba(0,0,0,.01);
+        width: 22px;
+        height: 18px;            
+    }
+
+    .collapse-sidebar #subheader-main .add{
+        display:none;
+    }
+
+/* 12.2 new design */
+    #header-main{
+        background-image: url("/img/adminpage/icons/products-small.png");
+        background-repeat: no-repeat;
+        padding-left:80px;
+    }
+    #header-main div{
+        float:left;
+        height:inherit;
+        position:relative;
+    }
+    #header-main h1 {
+      font-size: 34px;
+      float:left;
+      color:#036;
+      text-transform: uppercase;
+      height:36px;
+      position:absolute;
+      bottom:0;
+      text-transform: uppercase;
+    }
+    #header-main h1 .subhead {
+      font-size: 19px;
+      color:#999;
+      margin-right:8px;
+    }
+
+
+/* ----- Footer ----- */
+    #footer-main {
+        position: absolute; 
+        margin: 0; 
+        bottom: 0; 
+        left: 0; 
+        display: block; 
+        width: 100%; 
+        height: $footer-main-height; 
+        font-size: 1em; 
+        z-index: 6; 
+        overflow: hidden; 
+        background: #ccc;
+        color: 000;
+
+    }
+    
+    #footer-main .inner {
+        padding: 10px;
+        overflow:auto;
+    }
+
+    #footer-main button{
+/*        @include button3( $button-color ); */
+        margin: 5px 5px 0;
+        float:right;
+        position:relative;
+        top:1px;
+    }
+/*
+    #footer-main button:hover {
+        @include button3( darken( $button-color, 5% ), 1 );
+    }
+
+    #footer-main button:active {
+        @include button3( lighten( $button-color, 1% ), 1 );
+    }
+*/
+    #footer-main button.full-screen{
+        background: none;
+        border:none;
+        width: 36px;
+        height: 30px;
+    }
+    #footer-main button.full-screen span{
+        padding-left: 0;
+        background-image: url(/theme/img/sprites_12-2.png);
+        background-position: -108px -65px;
+        background-repeat: no-repeat;
+        width: 43px;
+        height: 30px;
+    }
+
+
+    .full-screen-mode #footer-main button.full-screen span{
+        background-position: -108px -97px;
+    }
+
+/* ----- Main Content ----- */
+    .collapse-sidebar #main-content{
+        left:0;
+    }
+    
+    #defaultMessage {
+        font-weight:bold;
+        overflow: auto;
+        position: absolute;
+        z-index: 4;
+        top: $header-main-height + $subheader-main-height; 
+        bottom: $footer-main-height; 
+        left: 200px;
+        right: 0;
+        padding: 32px 20px;
+        background: #fff;
+
+        @include transition-property(top);
+          @include transition-duration(.25s);
+
+          @include transition-property(left);
+          @include transition-duration(.25s);
+    }
+
+    #main-content {
+          overflow: auto; 
+        position: absolute; 
+        z-index: 3; 
+        top: $header-main-height + $subheader-main-height; 
+        bottom: $footer-main-height; 
+        left: 200px; 
+        right: 0; 
+        padding: 32px 20px;
+        background: #fff;
+
+        @include transition-property(top);
+          @include transition-duration(.25s);
+
+          @include transition-property(left);
+          @include transition-duration(.25s);
+    }
+    
+    .full-screen-mode #main-content{
+        top:$subheader-main-height;
+    }
+
+    .show-ribbon #main-content {
+        top: $header-main-height + $subheader-main-height + $ribbon-height;
+    }
+
+    .collapse-sidebar #main-content,
+    .collapse-sidebar #defaultMessage{
+        left:0;
+    }
+
+    /* TOP */
+    #main-content .main-section-top {
+        margin-bottom: 16px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .section-label h2 {
+        display: block;
+        width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre;
+        font-size: 30px;
+        line-height: 28px;
+        padding-right: 10px;
+        color: #666;
+    }
+
+    .section-label span {
+    display: inline-block;
+        width: 90%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: pre;
+        color: #666;
+    }
+
+    
+
+    /* MIDDLE */
+    #main-content .main-section-mid button {
+        @include button3( $button-color );
+        margin-top: 7px;
+        margin-left: 10px;
+        float:right;
+    }
+    
+    #main-content .main-section-mid button:hover {
+        @include button3( darken( $button-color, 5% ), 1 );
+    }
+
+    #main-content .main-section-mid button:active {
+        @include button3( lighten( $button-color, 1% ), 1 );
+    }
+
+    .main-section-mid .filter-wrapper {
+          background: none;
+          padding-left: 0px;
+          float: left;
+    }
+
+    #main-content .pagination-pages {
+          float: left;
+    }
+
+    #main-content .pagination-records {
+          float: right;
+    }
+
+    .section-pagination .current-page {
+          text-decoration: none;
+    }
+
+/* ----- Left Sidebar ----- */
+
+    .collapse-sidebar #left-sidebar,.collapse-sidebar #left-side-filter-bar{
+        //left:-200px;
+        width:0px;
+    }
+    
+    .no-csstransitions .collapse-sidebar #left-sidebar,.no-csstransitions .collapse-sidebar #left-side-filter-bar{
+        visibility:hidden;
+    }
+
+    #left-sidebar,#left-side-filter-bar {
+        text-align: left;
+        position: absolute; 
+        left: 0; 
+        bottom: $footer-main-height; 
+        width: 200px; 
+        background:#eee;
+        z-index: 5; 
+        overflow: auto; 
+        overflow-x: hidden;
+        visibility: visible;
+        box-shadow: 5px 0px 8px rgba(0,0,0,.10);
+
+        @include transition-property(top);
+          @include transition-duration(.25s);
+
+          @include transition-property(width);
+          @include transition-duration(.25s);
+                
+    }
+    #left-side-filter-bar {
+        text-align: center;
+        height:40px;
+        overflow:hidden;
+    }
+
+    
+    .full-screen-mode #left-sidebar{
+        top:$subheader-main-height;
+    }
+    
+    #left-side-filter-bar{
+        top: $header-main-height + $subheader-main-height; 
+    }
+    
+    #left-sidebar{
+        top: $header-main-height + $subheader-main-height + $side-filter-bar-height; 
+    }
+    
+    .show-ribbon #left-side-filter-bar{
+       top: $header-main-height + $subheader-main-height + $ribbon-height;  
+    }
+    
+    .show-ribbon #left-sidebar {
+        top: $header-main-height + $subheader-main-height + $ribbon-height + $side-filter-bar-height;
+    }
+    
+/* ----- Ribbon Selector --------- */
+    #ribbon-nav {
+        height: $header-main-height;
+    }
+    .show-ribbon #ribbon-nav {
+        height: $header-main-height + $ribbon-height;
+    }
+    #ribbon-nav .nav-h {
+        background: #e9eced center center;
+        @include background-image-with-gradient( 
+            bottom, rgba(0,0,0,.25), 15%, 
+            rgba(255,255,255,.35), 85%, 
+            "/theme/img/ribbon-nav-background2.png" 
+        );
+        height: $ribbon-selector-height;
+        border-bottom: #999 solid 1px;
+        border-bottom-color: rgba(0,0,0,.35);
+    }
+    .nav-h > li {
+        float:left;
+    }
+    .nav-h > li > a {
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+        font-family: 'ProximaNovaLight', $font-fallback;
+        line-height: $header-main-height;
+        padding: 0 10px;
+        border-right: solid 1px #ccc;
+        border-color: rgba(0,0,0,.1);
+        float: left;
+    }
+    .nav-h > li > a:hover {
+        background: #fff;
+        background: rgba(255,255,255,.2);
+    }
+    .nav-h > li > a:active {
+        background: #ccc;
+        background: rgba(129,210,237,.2);
+    }
+    .nav-h > li.user-added > a { 
+        background: rgba(129,210,237,.075); 
+    }
+    .nav-h > li.user-added > a:hover { 
+        background: rgba(129,210,237,.25); 
+    }
+    .nav-h > li.user-added > a:active { 
+        background: rgba(129,210,237,.4); 
+    }
+
+
+/* ----- Ribbons -------------- */
+
+#ribbons {
+    height: $ribbon-height; 
+    background: #e9eced center center;
+        @include background-image-with-gradient( 
+            bottom, rgba(0,0,0,.1), 0%, 
+            rgba(255,255,255,.1), 100%, 
+            "/theme/img/ribbon-nav-background2.png" 
+        );
+}
+
+.show-ribbon #ribbons { display: block; }
+
+
+
+.ribbon {
+    margin-left: -2000px;
+
+    @include transition-property(margin-left);
+      @include transition-duration(.25s);
+   @include transition-delay(.25s);
+}
+
+.show-ribbon .ribbon { margin-left: 0; }
+
+.ribbon > li { 
+    $ribbon-button-height: $ribbon-height - 12; 
+    float: left; 
+    height: $ribbon-button-height;
+    margin: 5px 0 0 6px;
+    width: $ribbon-button-height * .625;
+    border: solid 1px #999;
+    border-color: rgba(0,0,0,.2);
+    border-radius: 3px;
+    background: #eee;
+    background: rgba(255,255,255,.5);
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-position: center 5px;
+}
+
+.ribbon > li:hover { 
+    background-color: rgba(220,240,255,.5);
+}
+
+.ribbon > li > a {
+    $ribbon-button-height: $ribbon-height - 12;
+    height: $ribbon-button-height * .375;
+    display: block;
+    margin-top: $ribbon-button-height * .625;
+    overflow: hidden;
+
+    font-size: 12px;
+    line-height: 14px; 
+    font-family: 'ProximaNovaLight', $font-fallback;
+    text-align: center;
+    margin-right: 2px;
+    margin-left: 2px;
+    color: #333;
+    border-top: solid 1px #999;
+    border-top-color: rgba(0,0,0,.05);
+    padding-top: 2px;
+}
+
+.ribbon > .admin-home { background-image: url(/theme/img/icons/home.png); }
+.ribbon > .profile { background-image: url(/theme/img/icons/profile.png); }
+.ribbon > .files { background-image: url(/theme/img/icons/files.png); }
+.ribbon > .parts { background-image: url(/theme/img/icons/parts.png); }
+.ribbon > .migration { background-image: url(/theme/img/icons/migrate.png); }
+    
+/*    SIDEBAR LIST STYLING */
+    #left-sidebar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    #left-sidebar li {
+        line-height: 20px;
+        @include background-image(linear-gradient( top, rgba(255,255,255,.1) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,.025) 100% ));
+        cursor: pointer;
+        font-family:'ProximaNovaLight', $font-fallback;
+        font-size:13px;
+    }
+    
+    #left-sidebar li{
+        background-repeat: no-repeat;
+        background-image: url(/theme/img/leftnav_selected.png);
+        cursor: move; 
+        background-position: -10px center;
+        padding:0 6px;
+    }    
+    #left-sidebar li.active{
+        background-position: -2px center;
+        font-family:'ProximaNovaSemiBold', $font-fallback;
+        color:#69c;
+    }
+        
+    .float-right { float: right; }
+    
+    .float-left { float: left; }
+    
+    .element-show {display:block;}
+    
+    .element-hide {display:none;}
+
+    .filter-wrapper {
+        padding: 10px;
+        background:#ccc;
+    }
+    
+    .filter-text-wrapper{
+        width:150px;
+        background:#fff;
+        background: rgba(255, 255, 255,1);
+        border-radius: 3px;
+        position:relative;
+        padding: 2px 4px;
+        text-align:left;
+    }
+    
+    input.filter {
+         width: 130px;
+         padding: 0px 0px 0px 5px;
+         height: 20px;
+         border: none;
+         background: #fff;
+         background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .clear-filter-text{
+        background-image: url(/theme/img/icons/delete.png);
+        background-color: #fff;
+        background-color: rgba(255, 255, 255, 0.8);
+        background-position: -80px 18px;
+        vertical-align: middle;
+        height: 17px;
+        width: 16px;
+        padding: 0px;
+        cursor: pointer;
+        border: none;
+        position: absolute;
+        right: 2px;
+        top:3px;
+     }
+    
+    
+    .reveal-on-hover {
+        visibility: hidden;
+        position:relative;
+    }
+
+    li:hover .reveal-on-hover,
+    #pricing-table-wrapper tr:hover .reveal-on-hover{
+        visibility: visible;
+    }
+
+    li .reveal-on-hover{
+        float:right;
+    }
+
+    .reveal-on-hover button{
+        background-repeat: no-repeat;
+        width:20px;
+        height:24px;
+        border:none;
+        opacity: 0.3; 
+        -moz-opacity: 0.3; 
+        filter:alpha(opacity=30);
+        background-color:transparent !important;
+        margin:2px 0;
+    }
+    .action .reveal-on-hover button{
+        margin:2px 1px;
+    }
+
+    .reveal-on-hover button:hover {
+        opacity: 1; 
+        -moz-opacity: 1; 
+        filter:alpha(opacity=100);
+    }
+    
+/* moved to _buttons.scss
+    .reveal-on-hover button.edit { 
+        background-image: url(/theme/img/sprites_12-2.png);
+        background-position: -4px -48px;
+        background-repeat: no-repeat;
+    }
+    .reveal-on-hover button.remove {
+        background-image: url(/theme/img/sprites_12-2.png);
+        background-position: -4px -71px;
+        background-repeat: no-repeat;
+    }
+    .reveal-on-hover button.accept {
+        background-image: url(/theme/img/sprites_12-2.png);
+        background-position: 0px -116px;
+        background-repeat: no-repeat;
+    }
+*/
+    
+    .reveal-on-hover button.edit span { background-image: none; }
+    .reveal-on-hover button.remove span { background-image: none; }
+    .reveal-on-hover button.accept span { background-image: none; }
+
+    .reveal-on-hover .edit,
+    .reveal-on-hover .remove,
+    .reveal-on-hover .accept{
+        padding-left:0;
+    }
+
+    .reveal-on-hover span{
+        height:24px;
+        width:24px;
+    }
+
+    .add-accept{
+        background-repeat: no-repeat;
+        width:16px;
+        height:16px;
+        border:none;
+        background-image: url(/theme/img/icons/add.png);
+        background-color:transparent !important;
+    }
+
+    .hide-accept{
+        background-repeat: no-repeat;
+        width:16px;
+        height:16px;
+        border:none;
+        background-image: url(/theme/img/icons/hide.png);
+        background-color:transparent !important;
+    }
+
+    .delete {
+        display: none;
+    }
+    
+    #left-sidebar li .price-profile-wrapper{
+        text-align: left;
+        padding:6px 0 6px 6px;
+        border-bottom: 1px solid #fff;        
+    }
+
+    #left-sidebar li:first-child .price-profile-wrapper{
+        border-top: solid #fff 1px;
+    }
+    #left-sidebar li:last-child .price-profile-wrapper{
+        border-bottom: solid #999 1px;
+    }
+    
+    #navbar-profile-listing li .price-profile-wrapper button{
+        display: inline-block;
+        height: 20px;
+        margin: 0px;
+        padding:0px;
+        width: 20px;
+        vertical-align:top;
+        opacity: 0.3; 
+        -moz-opacity: 0.3; 
+        filter:alpha(opacity=30);
+    }
+
+    #navbar-profile-listing .price-profile-wrapper button{
+        visibility:hidden;
+    }
+
+    #navbar-profile-listing li:hover .price-profile-wrapper button{
+        visibility:visible;
+    }
+
+    #navbar-profile-listing .price-profile-wrapper button:hover{
+        opacity: 1; 
+        -moz-opacity: 1; 
+        filter:alpha(opacity=100);
+
+    }
+
+    #navbar-profile-listing .price-profile-wrapper .profile-name-wrapper{
+        padding:0px;
+        margin:0px;
+        display:inline-block;
+        width: 116px;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        -ms-text-overflow: ellipsis;
+        white-space:pre;
+        overflow:hidden;
+        cursor:pointer;
+        vertical-align: middle;
+    }
+
+
+    .price-profile-wrapper .reveal-on-hover{
+        position:absolute;
+        top:2px;
+        right: 12px;
+    }
+    
+
+    .numberofRecords{
+        width:30px;
+        text-align:right;
+        background: none repeat scroll 0 0 rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        border-radius: 3px 3px 3px 3px;
+        padding: 2px 4px;
+    }
+
+    .pagination-pages a{
+        text-decoration:underline;
+        padding:4px 6px;
+    } 
+
+    .pagination-pages a.current-page{
+        text-decoration:none;
+    }
+
+    .prevPage{
+        display: none;
+    }
+
+
+    #tabs {
+     position: absolute;
+     top: 0;
+     left:200px;
+     padding:0;
+    }
+
+    #tabs li{
+         float: left;
+    }
+    #tabs li a{
+         color: #fff;
+         padding: 10px 8px 2px;
+         display:block;
+         height:40px;
+         width:100px;
+         text-align: center;
+         font-family:'ProximaNovaSemiBold', $font-fallback;
+    }
+
+    #tabs li.active {
+        background: url(/theme/img/bkg/nav_selected_gradient.jpg) repeat-x;
+    }
+    #tabs li:hover{
+        background: url(/theme/img/bkg/nav_gray_gradient.jpg) repeat-x;
+    }
+    #tabs li.active a{
+        background-image: url(/theme/img/sprites_12-2.png);
+        background-position: -64px -187px; 
+        background-repeat: no-repeat;
+    }
+    #tabs li.active:hover a{         
+        background-position: -64px -129px;  
+    }
+
+    .placeholder {
+         color: #aaa;
+         font-style:italic;
+         font-size:9pt;
+    }
+    
+    /*adding a constant color for default place holder in FFX and webkit*/
+    ::-webkit-input-placeholder  { 
+         color: #aaa;
+         font-style:italic;
+         font-size:9pt; 
+    }
+    input:-moz-placeholder { 
+         color: #aaa;
+         font-style:italic;
+         font-size:9pt;
+    }
+
+    .edit-action{
+        @include button3( $button-color );
+        line-height:22px;
+        float:right;
+    }
+
+    .edit-action span{background-image: url(../img/icons/edit.png);}
+
+    .edit-action:hover {
+        @include button3( darken( $button-color, 5% ), 1 );
+        line-height:22px;
+    }
+
+    .edit-action:active {
+        @include button3( lighten( $button-color, 1% ), 1 );
+    }
+    
+    // XXX: A button at the top of the page used to prevent IE from clicking the collapse sidebar button on enter. 
+    //  IE is too smart to click a display:none or visibility:hidden button, so removing all styling and setting it off the page is our hack
+    button.prevent-enter {
+        position: absolute;
+        border: none;
+        background: none;
+        top: -9999px;
+        left: -9999px;
+    }

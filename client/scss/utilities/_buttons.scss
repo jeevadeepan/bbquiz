@@ -1,0 +1,113 @@
+@mixin standardButton( $color ) { 
+    
+    background-color: $color;
+
+    @include background-image(linear-gradient( lighten($color, 40%) 0%, lighten($color, 15%) 50%, $color 50%, darken($color, 10%) 100% ));
+    border: 1px solid darken($color, 20%);
+    border-radius: 5px;
+
+    box-shadow: 0 0 0 1px rgba($color, 0.2) inset, 1px 1px 5px rgba(0,0,0,.5); // Don't bother with browser specific box-shadow
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
+
+    color: #FFFFFF;
+    padding: 0 5px 4px 5px;
+    height: 27px;
+    line-height: 22px;  
+}
+
+
+
+@mixin button2( ) { 
+    
+    background: #26262b;
+    @include background-image(#26262b, #292e3a);
+
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 0px rgba(255,255,255, 0.2) inset, 0px 1px 0px rgba(255,255,255,0.2);
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
+    color: #FFFFFF;
+    padding: 0 6px;
+    height: 27px;
+    line-height: 26px;
+
+}
+
+@mixin button3( $color: #292e3a, $reverse-gradient: 0 ) { 
+    
+    // $color: #292e3a !default;
+    $secondary-color: desaturate( darken($color, 3%), 5%); 
+
+    @if $reverse-gradient == 0 {
+        background: $color; // Fallback
+        @include background-image( linear-gradient( $color, $secondary-color ) );
+    } @else { 
+        background: $secondary-color; // Fallback
+        @include background-image( linear-gradient( $secondary-color, $color ) );
+    }
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 0px rgba(255,255,255, 0.2) inset, 0px 1px 0px rgba(255,255,255,0.2);
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
+    color: #FFFFFF;
+    padding: 0 6px;
+    height: 27px;
+    line-height: 26px;
+}
+
+
+/* 12.2 new design */
+
+@mixin action-button {
+    background: url(/theme/img/bkg/blue_button_gradient.jpg) repeat-x;
+    border: none; 
+    border-radius: 4px; 
+    padding: 0 8px 0 6px; 
+    height: 27px; 
+    line-height: 22px;
+    margin:10px;
+    color:#fff;
+    font-weight:bold;
+}
+
+button span { background: transparent left center no-repeat; display: block; color:#ffffff; font-weight:bold; text-transform: capitalize; }
+button.add, button.back, button.delete, button.accept, button.save, button.edit, button.remove, button.confirm-button, button.cancel-button { 
+    @include action-button;
+}
+button.search-button{
+  background: url(/theme/img/bkg/blue_button_gradient.jpg) repeat-x;
+}
+button.add{
+    background: url(/theme/img/bkg/green_button_gradient.jpg) repeat-x;
+}
+button.accept{
+    background-image: url(/theme/img/sprites_12-2.png);
+    background-position: 0px 2px;
+    background-repeat: no-repeat;
+}
+button.edit { 
+    background-image: url(/theme/img/sprites_12-2.png);
+    background-position: -4px -48px;
+    background-repeat: no-repeat;
+}
+button.remove {
+    background-image: url(/theme/img/sprites_12-2.png);
+    background-position: -4px -71px;
+    background-repeat: no-repeat;
+}
+.reveal-on-hover button.accept {
+    background-image: url(/theme/img/sprites_12-2.png);
+    background-position: -4px -117px;
+    background-repeat: no-repeat;
+}
+
+/*
+button.edit span { background-image: url(/theme/img/icons/edit.png); }
+button.remove span { background-image: url(/theme/img/icons/delete.png); }
+button.delete span { background-image: url(/theme/img/icons/delete.png); }
+button.accept span { background-image: url(/theme/img/icons/accept.png); }
+button.save span {
+  background-image: url(/theme/img/icons/save.png);
+  background-position: 0px 5px;
+}
+*/

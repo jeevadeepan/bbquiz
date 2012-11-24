@@ -1,0 +1,41 @@
+// ----- Colors ----------------------------- //
+$primary-color: #3d788f;
+$button-color: #292e3a;
+
+// ----- Layout ----------------------------- //
+    // $min-page-width: 800px;
+    // $max-page-width: 1400px;
+    // $page-width: 960px;
+
+    $header-main-height: 60px;
+    $subheader-main-height: 40px;
+    $ribbon-selector-height: 30px;
+    $ribbon-height: 100px;
+
+// ----- Fonts ------------------------------ //
+
+$font-directory: '/theme/fonts/';
+$font-family-body: 'ProximaNovaLight';
+$font-family-heading: 'ProximaNovaSemibold';
+$font-family-subhead: 'ProximaNovaRegular';
+$font-family-link: 'ProximaNovaRegular';
+$font-fallback: Arial, "Nimbus Sans L", FreeSans, sans-serif;
+$font-size: 14px;
+
+// ----- Utilities/Mixins ------------------- //
+@import "compass";
+@import "sprites";
+@import "utilities/reset";
+@import "utilities/custom-fonts";
+@import "utilities/buttons";
+@import "utilities/background-image-with-gradient";
+@import "utilities/confirmDialog";
+
+// ------------------------------------------ //
+@import "typography";
+@import "layout";
+@import "colorbox";
+@import "tooltip";
+@import "widget";
+@import "autocomplete";
+@import "accordion";

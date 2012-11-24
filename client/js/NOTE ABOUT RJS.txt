@@ -1,0 +1,6 @@
+r.js is currently at version 2.0.2 because higher versions do not ignore the second require.config
+in common-configs.js
+
+There is also an issue with 2.0.2 when namespacing the jquery file, so it has been modified. The 
+regex they were using was expecting jquery to not be minified, and fails to properly replace
+values when using the minified version. 

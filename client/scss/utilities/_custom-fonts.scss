@@ -1,0 +1,14 @@
+// expects eot, woff, ttf, and svg files to be named the same 
+// and in the same directory
+@mixin customFont($family, $file, $directory) { 
+ 	@font-face {
+	    font-family: $family;
+	    src: url($directory+$file+'.eot');
+	    src: url($directory+$file+'.eot?iefix') format('eot'),
+	         url($directory+$file+'.woff') format('woff'),
+	         url($directory+$file+'.ttf') format('truetype'),
+	         url($directory+$file+'.svg') format('svg');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+}

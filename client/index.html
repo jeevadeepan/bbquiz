@@ -1,9 +1,25 @@
+<!doctype html>
 <html>
 	<head>
 		<titile>
 		</title>
+		<script src="js/lib/jquery-1.7.2.min.js"></script>
 	</head>
 	<body>
 		<h1>Helloddd world</h1>
 	</body>
+	<script>
+		$.getJSON('/quiz', function(data) {
+	var items = [];
+
+  $.each(data, function(key, val) {
+    items.push('<li id="' + key + '">' + val + '</li>');
+  });
+
+  $('<ul/>', {
+    'class': 'my-new-list',
+    html: items.join('')
+  }).appendTo('body');
+});
+	</script>
 </html>

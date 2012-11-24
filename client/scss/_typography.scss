@@ -1,0 +1,40 @@
+// ------------------------------------------ //
+
+body {
+	font-size: $font-size;
+	font-weight: normal !important;
+	font-family: $font-family-body, $font-fallback;
+}
+
+a {
+  color: $primary-color;
+  font-family: $font-family-link, $font-fallback;
+}
+
+h1,h2,h3,h4,h5,h6 { 
+	font-weight: normal;
+	font-family: $font-family-heading, $font-fallback;
+}
+
+h1 { 
+	font-size: 40px; 
+}
+h2 { 
+	font-size: 30px; 
+	color: #444;
+}
+
+@include customFont("ProximaNovaBlack", "ProximaNova-Black-webfont", $font-directory);
+@include customFont("ProximaNovaBlackItalic", "ProximaNova-BlackIt-webfont", $font-directory);
+@include customFont("ProximaNovaBold", 	"ProximaNova-Bold-webfont", $font-directory);
+@include customFont("ProximaNovaBoldItalic",  "ProximaNova-BoldIt-webfont", $font-directory);
+@include customFont("ProximaNovaXBoldItalic",   "ProximaNova-XboldIt-webfont", $font-directory);
+@include customFont("ProximaNovaXBold",     "ProximaNova-Xbold-webfont", $font-directory);
+@include customFont("ProximaNovaRegularItalic", "ProximaNova-RegIt-webfont", $font-directory);
+@include customFont("ProximaNovaLight",     "ProximaNova-Light-webfont", $font-directory);
+@include customFont("ProximaNovaLightItalic",   "ProximaNova-LightIt-webfont", $font-directory);
+@include customFont("ProximaNovaRegular",     "ProximaNova-Reg-webfont", $font-directory);
+@include customFont("ProximaNovaSemibold",    "ProximaNova-Sbold-webfont", $font-directory);
+@include customFont("ProximaNovaSemiboldItalic","ProximaNova-SboldIt-webfont", $font-directory);
+@include customFont("ProximaNovaThin",      "ProximaNova-Thin-webfont",   $font-directory);
+@include customFont("ProximaNovaThinItalic",  "ProximaNova-ThinIt-webfont", $font-directory);

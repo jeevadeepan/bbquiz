@@ -1,0 +1,1 @@
+define({"yes":"Yes","deleteTitle":"Delete","no":"No","errorTitle":"Error","ok":"Ok","confirmTitle":"Are you sure?","warningTitle":"Warning"});
