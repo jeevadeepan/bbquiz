@@ -1,25 +1,22 @@
-<!doctype html>
-<html>
-	<head>
-		<titile>
-		</title>
-		<script src="js/lib/jquery-1.7.2.min.js"></script>
-	</head>
-	<body>
-		<h1>Helloddd world</h1>
-	</body>
-	<script>
-		$.getJSON('/quiz', function(data) {
-	var items = [];
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" xml:lang="en" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-  $.each(data, function(key, val) {
-    items.push('<li id="' + key + '">' + val + '</li>');
-  });
-
-  $('<ul/>', {
-    'class': 'my-new-list',
-    html: items.join('')
-  }).appendTo('body');
-});
-	</script>
+  <title>Backbone Boilerplate</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Backboneboilerplate.com is a community driven effort to help developers learn and rapidly deploy single page web applications" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script  src="js/common-config.js"></script>
+  <script data-main="js/app/main" src="js/require.js"></script>
+</head>
+<body>
+  
+  
+  
+</body>
 </html>

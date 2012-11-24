@@ -1,6 +1,6 @@
 function includeCommonConfig() {
     require.config({
-        baseUrl: '/theme/js',
+        baseUrl: '/js',
         paths: {
             jquery: 'lib/jquery-1.7.2.min',
             jqueryui: 'lib/jqueryui',
@@ -19,25 +19,8 @@ function includeCommonConfig() {
             },
             handlebarslib: {
                  exports: 'Handlebars'
-            },
-            'lib/toastr': {
-                deps: ['jquery'],
-                exports: 'toastr'
-            },
-            'lib/colorbox-min': ['jquery'],
-            'lib/jquery.simplePagination': ['jquery'],
-            'lib/jquery.editable': ['jquery'],
-            'lib/jquery.liveFilter': ['jquery'],
-            'lib/jquery.multi-select': ['jquery'],
-            'lib/jquery.tipsy': ['jquery'],
-            'lib/jquery.tzCheckbox': ['jquery'],
-            'lib/jquery.liveUpdate': ['jquery']
+            }
         }
     });
-    // Separate config to hide from build script
-    require.config({
-        i18n: {
-            locale: _BM_USER_LANGUAGE
-        }
-    });
+
 }
