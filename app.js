@@ -24,7 +24,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   //app.use(express.urlencoded);
   app.use(express.static(__dirname + '/client'));
-  app.use(express.static(__dirname + '/test));
+  app.use(express.static(__dirname + '/test'));
   app.use(express.errorHandler({
     dumpExceptions: true, 
     showStack: true

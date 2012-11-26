@@ -1,4 +1,4 @@
-	module(“Module Name”,
+	module('Module Name',
 	{
 			setup:function()
 			{
@@ -19,7 +19,7 @@
            }
 	});
 	
-	test(“Name of test case ”,function(){ 
+	test('Name of test case ',function(){ 
 				//Assertions
 				equal(A,E,M); 
 				notEqual(A,E,M);
