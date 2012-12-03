@@ -3,15 +3,14 @@
 define([
     'jquery',
     'backbone',
-    'common/PlaceHolderIEFix'
-], function($, Backbone){
+    '/js/app/views/pageView.js'
+], function($, Backbone,PageView){
 		var Router = Backbone.Router.extend({
 
 
 			initialize: function(){
 				//Tells backbone to start watch for hash change events
 				Backbone.history.start();
-
 			},
 
 			//All the backbone routes
@@ -24,7 +23,7 @@ define([
 			 *	intialize the appview
 			 */
 			home:function(){
-				//var pageView = new PageView();
+				var pageView = new PageView();
 			}
 		});
 
