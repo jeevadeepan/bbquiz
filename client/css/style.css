@@ -305,3 +305,60 @@ td {
 body {
   font-family: "Helvetica", Arial, sans-serif;
 }
+
+.main-bg{
+	background-image:url('/img/quiz-app_bg_A.jpg');
+}
+
+#main-header hgroup h1{
+	 height:102px;
+	width:402px;
+	
+     font-size: 14px;
+	 display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+       
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+        
+    display: box;
+    box-orient: horizontal;
+    box-pack: center;
+    box-align: center;
+}
+
+#main-header hgroup h1 div{
+	background-image:url('/img/quiz-logo_A.png');
+	height:102px;
+	width:402px;
+}
+
+#loginName{
+	color:#fff;
+	float:left;
+}
+
+#inputWrapper{
+	clear:both;
+	float:left;
+}
+
+#actions{
+	clear:both;
+	float:left;
+}
+
+#actions button{
+	clear:both;
+	float:left;
+	color:#000000 ;
+	background-color: #999999;
+	border:2px solid #555555;
+	padding:10px;
+	margin:10px;
+}
+
