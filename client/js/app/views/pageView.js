@@ -2,8 +2,9 @@ define([
 		 'jquery', 
 		 'underscore',
 		 'backbone',
-		 '/js/app/views/loginView.js'
-		], function($, _, Backbone,LoginView){
+		 '/js/app/views/loginView.js',
+		 '/js/app/models/loginModel.js'
+		], function($, _, Backbone,LoginView,LoginModel){
 
 	var pageView = Backbone.View.extend({
 	
@@ -22,8 +23,8 @@ define([
 		initialize: function(){
 			//Best practice for having reference of the view
 			var that = this;
-			var loginView = new LoginView();
-			console.log("inside the initialze function");
+			var loginModel = new LoginModel();
+			var loginView = new LoginView({model:loginModel});
 		},
 		
 		/*
