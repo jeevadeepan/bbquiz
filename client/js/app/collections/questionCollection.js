@@ -2,14 +2,10 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    '/js/app/models,quizModel'
-], function($, _, Backbone,quiz){
+    '/js/app/models/questionModel.js'
+], function($, _, Backbone,question){
     var questionList = Backbone.Collection.extend({
-        model: question,
-        url: '/questions.json',  /* needs to be updated with correct name/url from config.json?*/
-        parse: function(response) {
-            return response;
-        }
+        model: question
     });
 
     return questionList;
