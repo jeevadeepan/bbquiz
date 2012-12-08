@@ -331,7 +331,7 @@ body {
     box-align: center;
 }
 
-#main-header hgroup h1 div{
+#login-header div,#resultHeader div{
 	background-image:url('/img/quiz-logo_A.png');
 	height:102px;
 	width:402px;
@@ -352,7 +352,7 @@ body {
 	float:left;
 }
 
-#actions button{
+#actions button,#resultActions button{
 	clear:both;
 	float:left;
 	color:#000000 ;
@@ -361,4 +361,35 @@ body {
 	padding:10px;
 	margin:10px;
 }
+
+.hide{
+	display:none;
+}
+
+
+#timerWrapper,#scoreWrapper{
+	border:1px solid #f00;
+	height:50px;
+	text-align:center;
+	vertical-align:middle;
+	width:99%;
+}
+
+
+#timerWrapper #timer{
+	width:100px;
+	color:#fff;
+	font-size:16pt;
+	position:relative;
+	left:45%;
+	top:20%;
+}
+
+#scoreWrapper div{
+	color:#fff;
+	font-size:16pt;
+	float:left;	
+}
+
+
 

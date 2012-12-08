@@ -1,10 +1,10 @@
 /*global define */
 	define([
 		'handlebars'
-	],function(Handlebars, loginHeader){
+	],function(Handlebars){
 		return {
-			loginHeader:'<div></div>',
+			loginHeader:'<div id="login-header"><div></div></div>',
 			login:'<div id="loginName">Enter your Name</div><div id="inputWrapper"><input type="text" /></div>',
-			loginButton:'<button id="startGame">Start Game</button><button id="help">Help</button>'
+			loginButton:'<div id="actions"><button id="startGame">Start Game</button><button id="help">Help</button></div>'
 		};
 	});

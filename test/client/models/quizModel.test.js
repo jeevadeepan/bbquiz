@@ -1,3 +1,4 @@
+define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
 	module('Module Name',
 	{
 			setup:function()
@@ -24,3 +25,4 @@
 				equal(A,E,M); 
 				notEqual(A,E,M);
      });
+});

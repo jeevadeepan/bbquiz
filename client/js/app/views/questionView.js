@@ -1,13 +1,15 @@
 define([
 				'jquery', 
 				'underscore',
-				'backbone'
-				], function($, _, Backbone){
+				'backbone',
+				'/js/app/templates/question.js'
+				], function($, _, Backbone,QuestionTemplate){
 
 	var questionView = Backbone.View.extend({
-	
-	  //Define the element corresponding to the view here
-		el:'',
+		/*spectify the tag to be created for this view*/
+		tagName:'div',
+		
+		id:'questionWrapper',
 		
 		//Define all the events here,In backbone all the events use event delegation
 		events :{
@@ -20,12 +22,16 @@ define([
 		initialize: function(){
 			//Best practice for having reference of the view
 			var that = this;
+			that.render();
 		},
 		
 		/*
 		* All the templating updation should be done here, only this  should talk to the template
 		*/
 		render: function(){
+			this.$el.html(QuestionTemplate.details+
+					QuestionTemplate.questionWrapper+
+					QuestionTemplate.optionsWrapper);
 		}
 	
 	});

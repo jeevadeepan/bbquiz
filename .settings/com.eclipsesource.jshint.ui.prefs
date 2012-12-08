@@ -1,0 +1,6 @@
+#Sat Dec 08 09:32:53 IST 2012
+eclipse.preferences.version=1
+globals=jQuery\: true,\r\nBackbone\: true,\r\n _\: true
+included=//*
+options=devel\: true,\r\nbrowser\: true,\r\ncurly\: true,\r\neqeqeq\: true,\r\nforin\: true,\r\nimmed\: true,\r\nlatedef\: newcap,\r\nnoarg\: true,\r\nnoempty\: true,\r\nundef\: true,\r\nstrict\: true,\r\ntrailing\: true,\r\nnewcap\: true
+projectSpecificOptions=true
