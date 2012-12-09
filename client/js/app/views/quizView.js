@@ -3,6 +3,7 @@ define([
 				'underscore',
 				'backbone',
 				'/js/app/models/loginModel.js',
+				'/js/app/collections/questionCollection.js',
 				'/js/app/models/questionModel.js',
 				'/js/app/models/quizModel.js',
 				'/js/app/models/timerModel.js',
@@ -13,7 +14,7 @@ define([
 				'/js/app/views/timerView.js',
 				'/js/app/views/actionsView.js',
 				'/js/app/views/resultView.js'
-				], function($, _, Backbone,LoginModel,Questions,QuizModel,TimerModel,ActionsModel,ResultModel,
+				], function($, _, Backbone,LoginModel,Questions,Question,QuizModel,TimerModel,ActionsModel,ResultModel,
 							LoginView,QuestionView,TimerView,ActionsView,ResultView){
 
 	var quizView = Backbone.View.extend({
@@ -21,13 +22,24 @@ define([
 	  //Define the element corresponding to the view here
 		el:'#main-content',
 		
+		//reference of loginModel
 		loginModel:null,
 		
+		//reference of resultModel
 		resultModel:null,
 		
+		//reference of timerModel
 		timerModel:null,
 		
+		//reference of actionsModel
 		actionsModel:null,
+		
+		//refernce for collection which acts a data source for the app
+		allQuestions:null,
+		
+		//collection have list of answered Questions
+		answeredQuestions:null,
+		
 		
 		//Define all the events here,In backbone all the events use event delegation
 		events :{
@@ -39,20 +51,17 @@ define([
 		*/
 		initialize: function(){
 			//Best practice for having reference of the view
-			var that = this,
-			quizModel = that.model;
+			var that = this;
 			that.showLoginView();
-			quizModel.on("change:display",function(model,display){
-				if(display == 'quiz'){
-					that.loginModel.set("display",false);
-					that.startQuiz();
-				}else if(display == 'result'){
-					that.timerModel.set("display",false);
-					that.actionsModel.set("display",false);
-					that.showResult();
-				}else if(display == 'login'){
-					that.resultModel.set("display",false);
-					that.showLoginView();
+			that.bindDisplay();
+			that.model.on('change:nextQuestionNumber',function(model,showNextQuestion){
+				if(showNextQuestion){
+					that.showNextQuestion();
+				}
+			});
+			that.model.on('change:previousQuestionNumber',function(model,showPreviousQuestion){
+				if(showPreviousQuestion){
+					that.showPreviousQuestion();
 				}
 			});
 		},
@@ -76,6 +85,27 @@ define([
 			});
 			that.$el.append(loginView.el);
 		},
+		
+		/**
+		 * view display update function, based on the display set in the model
+		 */
+		bindDisplay: function(){
+			var that = this,
+			quizModel = that.model;
+			quizModel.on("change:display",function(model,display){
+				if(display == 'quiz'){
+					that.loginModel.set("display",false);
+					that.startQuiz();
+				}else if(display == 'result'){
+					that.timerModel.set("display",false);
+					that.actionsModel.set("display",false);
+					that.showResult();
+				}else if(display == 'login'){
+					that.resultModel.set("display",false);
+					that.showLoginView();
+				}
+			});
+		},
 
 		/**
 		 * function to start the quiz by making an ajax request to the server and getting the list of 
@@ -89,6 +119,7 @@ define([
 				  data: {},
 				  success: function(data){
 					  that.getAllQuestions(data);
+					  that.showNextQuestion();
 				  }
 				});
 		},
@@ -101,24 +132,14 @@ define([
 		getAllQuestions: function(data){
 			var that=this;
 			//storing all the questions into the view.
-			that.options.questions = new Questions(data);
-			var question = that.getQuestion(data);
+			that.allQuestions = new Questions(data.questions);
+			that.answeredQuestions = new Questions();
 			timerView = that.createTimerView(data);
 			actionsView = that.createtActionsView();
-			var questionView = that.createQuestionView(question);
 			this.$el.append(timerView.el);
-			this.$el.append(questionView.el);
 			this.$el.append(actionsView.el);
 		},
 		
-		/**
-		 * get the question from the collection to be shown to the user
-		 */
-		getQuestion:function(data){
-			if(!data.randomized){
-				return that.options.questions.at(0);
-			}
-		},
 		
 		/**
 		 *function to initialize the timer with the given data
@@ -155,14 +176,80 @@ define([
 		},
 		
 		
+		/**
+		 * function to inti question list
+		 * @returns
+		 */
+		initQuestionList:function(){
+			var that=this;
+			that.updateActions();
+			that.updateCurrentQuestionNumber(true);
+		},
+		
+		/**
+		 * function that shows next question
+		 * @returns
+		 */
 		showNextQuestion:function(){
-			
+			var that=this;
+			that.updateCurrentQuestionNumber(true);
+			that.updateQuestion();
+			that.$el.find('#questionWrapper').remove();
+			var question = that.answeredQuestions.at(that.answeredQuestions.length);
+			var questionView = new QuestionView({model:question});
+			$(questionView.el).insertAfter(that.$el.find('#timerWrapper'));
 		},
 		
-		showPreviouQuestion: function(){
-			
+		/**
+		 * get the question from the collection to be shown to the user
+		 */
+		updateQuestion:function(){
+			var that = this;
+			var question = that.allQuestions.at(0);
+			that.answeredQuestions.push(question);
+			that.allQuestions.remove(question);
 		},
 		
+		/**
+		 * updates the current question number in the model
+		 * @returns
+		 */
+		updateCurrentQuestionNumber:function(isIncrement){
+			var that = this;
+			var questionNumber = that.model.get('currentQuestionNumber');
+			if(isIncrement){
+				questionNumber = questionNumber + 1;
+			}else{
+				questionNumber = questionNumber - 1;
+			}
+			that.model.set('currentQuestionNumber',questionNumber);
+		},
+		
+		/**
+		 * function to enable/disable actions buttons
+		 */
+		updateActions: function(){
+			var that = this;
+			var hasPreviousQuestion = (that.answeredQuestions.length > 0) ? true:false;
+			var hasNextQuestion = (that.allQuestions.length > 1) ? true:false;
+			that.actionsModel.set("hasPreviousQuestion",hasPreviousQuestion);
+			that.actionsModel.set("hasNextQuestion",hasNextQuestion);
+		},
+		
+		/**
+		 * function that shows previous question
+		 * @returns
+		 */
+		showPreviousQuestion: function(){
+			var that = this;
+			that.updateActions();
+			that.updateCurrentQuestionNumber(false);
+		},
+		
+		/**
+		 * function to show result
+		 * @returns
+		 */
 		showResult:function(){
 			var that = this;
 			that.resultModel = new ResultModel();

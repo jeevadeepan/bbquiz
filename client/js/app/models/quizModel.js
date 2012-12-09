@@ -8,7 +8,9 @@ define(['jquery', 'underscore', 'backbone',], function($, _, Backbone){
             time:null,
             randomized:false,
             display:'login',
-            currentQuestion:null
+            currentQuestionNumber:0,
+            nextQuestionNumber:0,
+            previousQuestionNumber:0
 		}
 	});
 	return quiz;

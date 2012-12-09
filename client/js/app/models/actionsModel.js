@@ -6,8 +6,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
 		 * if there is a next question, then show the next button
 		 */
 		defaults:{
-			hasPreviousQuestion:false,
-			hasNextQuestion:false
+			hasPreviousQuestion:true,
+			hasNextQuestion:true
 		}
 	});
 	return actionsModel;

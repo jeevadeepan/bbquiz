@@ -14,8 +14,8 @@ define([
 		
 		//Define all the events here,In backbone all the events use event delegation
 		events :{
-			'click .previous': 'showPreviousQuestion',
-			'click .next': 'showNextQuestion'
+			'click #previous': 'showPreviousQuestion',
+			'click #next': 'showNextQuestion'
 		},
 		
 		/*this function will be called while creating the new instance of the view. All the thirdparty 
@@ -26,7 +26,7 @@ define([
 			var that = this;
 			that.render();
 			this.model.on("change:hasPreviousQuestion",function(model,hasPreviousQuestion){
-					that.showNextQuestion(hasPreviousQuestion);
+					that.togglePreviousButton(hasPreviousQuestion);
 				});
 			this.model.on("change:hasNextQuestion",function(model,hasNextQuestion){
 					that.toggleNextButton(hasNextQuestion);
@@ -43,7 +43,6 @@ define([
 		
 		togglePreviousButton: function(hasPreviousQuestion){
 			var that = this;
-			console.log(this);
 			if(hasPreviousQuestion){
 				that.$el.find('.previous').removeClass('hide');
 			}else{
@@ -62,10 +61,14 @@ define([
 		
 		showPreviousQuestion: function(){
 			var that = this;
+			var currentQuestionNumber = that.options.quizModel.get('currentQuestionNumber');
+			that.options.quizModel.set('previousQuestionNumber',currentQuestionNumber-1);
 		},
 		
 		showNextQuestion: function(){
 			var that = this;
+			var currentQuestionNumber = that.options.quizModel.get('currentQuestionNumber');
+			that.options.quizModel.set('nextQuestionNumber',currentQuestionNumber+1);
 		},
 		
 		bindDisplay: function(){
