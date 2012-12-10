@@ -200,8 +200,8 @@ define([
 		 */
 		updateActions: function(){
 			var that = this;
-			var hasPreviousQuestion = (that.answeredQuestions.length > 0) ? true:false;
-			var hasNextQuestion = (that.allQuestions.length > 1) ? true:false;
+			var hasPreviousQuestion = (that.model.get("currentQuestionNumber") > 0) ? true:false;
+			var hasNextQuestion = (that.model.get("currentQuestionNumber") <= that.answeredQuestions.length) ? true:false;
 			that.actionsModel.set("hasPreviousQuestion",hasPreviousQuestion);
 			that.actionsModel.set("hasNextQuestion",hasNextQuestion);
 		},

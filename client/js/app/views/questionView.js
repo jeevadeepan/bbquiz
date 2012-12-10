@@ -23,6 +23,8 @@ define([
 			//Best practice for having reference of the view
 			var that = this;
 			that.render();
+			that.showQuestion();
+			that.showOption();
 		},
 		
 		/*
@@ -32,6 +34,21 @@ define([
 			this.$el.html(QuestionTemplate.details+
 					QuestionTemplate.questionWrapper+
 					QuestionTemplate.optionsWrapper);
+		},
+		
+		showQuestion: function(){
+			var that = this;
+			that.$el.find('#question').html(that.model.get("question"));
+		},
+		
+		showOption:function(){
+			var that = this;
+			var answers = that.model.get("answers")
+			var answer = '';
+			for(var i=0,j=answers.length;i<j;i++){
+				answer += '<div>'+answers[i]+'</div>';
+			}
+			that.$el.find('#optionsWrapper').html(answer);
 		}
 	
 	});

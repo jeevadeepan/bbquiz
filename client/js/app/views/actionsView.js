@@ -44,18 +44,18 @@ define([
 		togglePreviousButton: function(hasPreviousQuestion){
 			var that = this;
 			if(hasPreviousQuestion){
-				that.$el.find('.previous').removeClass('hide');
+				that.$el.find('#previous').removeClass('hide');
 			}else{
-				that.$el.find('.previous').addClass('hide');
+				that.$el.find('#previous').addClass('hide');
 			}
 		},
 		
 		toggleNextButton: function(hasNextQuestion){
 			var that = this;
 			if(hasNextQuestion){
-				that.$el.find('.next').removeClass('hide');
+				that.$el.find('#next').removeClass('hide');
 			}else{
-				that.$el.find('.next').addClass('hide');
+				that.$el.find('#next').addClass('hide');
 			}
 		},
 		

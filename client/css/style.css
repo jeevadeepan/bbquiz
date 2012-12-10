@@ -359,7 +359,7 @@ body {
 }
 
 #actions{
-    width: 350px;
+    width: 100%;
     text-align: center;
     display: inline-block;
     margin-top: 10%;
@@ -371,7 +371,7 @@ body {
 	border:2px solid #555555;
 	padding:10px;
 	margin:10px;
-    width: 320px;
+    width:350px;
 
 }
 
@@ -381,7 +381,6 @@ body {
 
 
 #timerWrapper,#scoreWrapper{
-	border:1px solid #f00;
 	height:50px;
 	text-align:center;
 	vertical-align:middle;
@@ -400,9 +399,36 @@ body {
 
 #scoreWrapper div{
 	color:#fff;
-	font-size:16pt;
+	font-size:18pt;
 	float:left;	
 }
 
+#questionWrapper #question{
+	color:#fff;
+	font-size:16pt
+	height:200px;
+}
 
 
+#optionsWrapper div{
+	color:#fff;
+	font-size:16pt
+	height:200px;
+}
+
+
+#actions{
+	height:100px;
+}
+
+#actions #startGame{
+	clear:both;
+}
+
+#actions #previous{
+	float:left;
+}
+
+#actions #next{
+    float:right;
+}
