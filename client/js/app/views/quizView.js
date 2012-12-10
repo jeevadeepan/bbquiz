@@ -54,15 +54,9 @@ define([
 			var that = this;
 			that.showLoginView();
 			that.bindDisplay();
-			that.model.on('change:nextQuestionNumber',function(model,showNextQuestion){
-				if(showNextQuestion){
-					that.showNextQuestion();
-				}
-			});
-			that.model.on('change:previousQuestionNumber',function(model,showPreviousQuestion){
-				if(showPreviousQuestion){
-					that.showPreviousQuestion();
-				}
+			that.model.on('change:currentQuestionNumber',function(model,currentQuestionNumber){
+					that.updateActions();
+					that.showQuestion(currentQuestionNumber);
 			});
 		},
 		
@@ -119,7 +113,8 @@ define([
 				  data: {},
 				  success: function(data){
 					  that.getAllQuestions(data);
-					  that.showNextQuestion();
+					  that.updateActions();
+					  that.showQuestion(0);
 				  }
 				});
 		},
@@ -167,63 +162,38 @@ define([
 		
 		
 		/**
-		 * create question view
-		 * @param questionModel
-		 * @returns
-		 */
-		createQuestionView:function(questionModel){
-			return new QuestionView({model:questionModel});
-		},
-		
-		
-		/**
-		 * function to inti question list
-		 * @returns
-		 */
-		initQuestionList:function(){
-			var that=this;
-			that.updateActions();
-			that.updateCurrentQuestionNumber(true);
-		},
-		
-		/**
 		 * function that shows next question
 		 * @returns
 		 */
-		showNextQuestion:function(){
+		showQuestion:function(QuestionNumber){
 			var that=this;
-			that.updateCurrentQuestionNumber(true);
-			that.updateQuestion();
 			that.$el.find('#questionWrapper').remove();
-			var question = that.answeredQuestions.at(that.answeredQuestions.length);
-			var questionView = new QuestionView({model:question});
-			$(questionView.el).insertAfter(that.$el.find('#timerWrapper'));
+			var question = that.getQuestion(QuestionNumber);
+			if(question){
+				var questionView = new QuestionView({model:question,quizModel:that.model});
+				$(questionView.el).insertAfter(that.$el.find('#timerWrapper'));
+			}
 		},
 		
 		/**
 		 * get the question from the collection to be shown to the user
 		 */
-		updateQuestion:function(){
+		getQuestion:function(QuestionNumber){
 			var that = this;
-			var question = that.allQuestions.at(0);
-			that.answeredQuestions.push(question);
-			that.allQuestions.remove(question);
+			if(that.answeredQuestions.length >= QuestionNumber+1){
+				return that.answeredQuestions.at(QuestionNumber);
+			}else if(that.allQuestions.length > 0){
+				var question = that.allQuestions.at(0);
+				that.answeredQuestions.push(question);
+				that.allQuestions.remove(question);
+				return question;
+			}else{
+				that.$el.find('#questionWrapper').remove();
+				that.model.set('display','result');
+			}
+			
 		},
 		
-		/**
-		 * updates the current question number in the model
-		 * @returns
-		 */
-		updateCurrentQuestionNumber:function(isIncrement){
-			var that = this;
-			var questionNumber = that.model.get('currentQuestionNumber');
-			if(isIncrement){
-				questionNumber = questionNumber + 1;
-			}else{
-				questionNumber = questionNumber - 1;
-			}
-			that.model.set('currentQuestionNumber',questionNumber);
-		},
 		
 		/**
 		 * function to enable/disable actions buttons
@@ -236,15 +206,6 @@ define([
 			that.actionsModel.set("hasNextQuestion",hasNextQuestion);
 		},
 		
-		/**
-		 * function that shows previous question
-		 * @returns
-		 */
-		showPreviousQuestion: function(){
-			var that = this;
-			that.updateActions();
-			that.updateCurrentQuestionNumber(false);
-		},
 		
 		/**
 		 * function to show result

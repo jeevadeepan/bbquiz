@@ -62,13 +62,13 @@ define([
 		showPreviousQuestion: function(){
 			var that = this;
 			var currentQuestionNumber = that.options.quizModel.get('currentQuestionNumber');
-			that.options.quizModel.set('previousQuestionNumber',currentQuestionNumber-1);
+			that.options.quizModel.set('currentQuestionNumber',currentQuestionNumber-1);
 		},
 		
 		showNextQuestion: function(){
 			var that = this;
 			var currentQuestionNumber = that.options.quizModel.get('currentQuestionNumber');
-			that.options.quizModel.set('nextQuestionNumber',currentQuestionNumber+1);
+			that.options.quizModel.set('currentQuestionNumber',currentQuestionNumber+1);
 		},
 		
 		bindDisplay: function(){

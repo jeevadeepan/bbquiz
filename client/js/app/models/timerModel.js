@@ -2,7 +2,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
 	var timerModel = Backbone.Model.extend({
 		//Set all the default properties here
 		defaults:{
-			time:100000,
+			time:60,
 			display:true
 		},
 		
