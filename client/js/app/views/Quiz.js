@@ -2,22 +2,22 @@ define([
 				'jquery', 
 				'underscore',
 				'backbone',
-				'/js/app/models/loginModel.js',
-				'/js/app/collections/questionCollection.js',
-				'/js/app/models/questionModel.js',
-				'/js/app/models/quizModel.js',
-				'/js/app/models/timerModel.js',
-				'/js/app/models/actionsModel.js',
-				'/js/app/models/resultModel.js',
-				'/js/app/views/loginView.js',
-				'/js/app/views/questionView.js',
-				'/js/app/views/timerView.js',
-				'/js/app/views/actionsView.js',
-				'/js/app/views/resultView.js'
+				'/js/app/models/Login.js',
+				'/js/app/collections/Questions.js',
+				'/js/app/models/Question.js',
+				'/js/app/models/Quiz.js',
+				'/js/app/models/Timer.js',
+				'/js/app/models/Actions.js',
+				'/js/app/models/Result.js',
+				'/js/app/views/Login.js',
+				'/js/app/views/Question.js',
+				'/js/app/views/Timer.js',
+				'/js/app/views/Actions.js',
+				'/js/app/views/Result.js'
 				], function($, _, Backbone,LoginModel,Questions,Question,QuizModel,TimerModel,ActionsModel,ResultModel,
 							LoginView,QuestionView,TimerView,ActionsView,ResultView){
 
-	var quizView = Backbone.View.extend({
+	var Quiz = Backbone.View.extend({
 	
 	  //Define the element corresponding to the view here
 		el:'#main-content',
@@ -77,6 +77,7 @@ define([
 					model:that.loginModel,
 					quizModel:that.model
 			});
+
 			that.$el.append(loginView.el);
 		},
 		
@@ -222,6 +223,6 @@ define([
 	
 	});
 
-	return quizView;
+	return Quiz;
 	
 });

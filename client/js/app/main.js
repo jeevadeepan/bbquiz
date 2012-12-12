@@ -2,8 +2,8 @@ includeCommonConfig();
 require([
     'jquery',
     'backbone',
-	'/js/app/router.js'
-], function($, Backbone, Router){
+	'/js/app/QuizRouter.js'
+], function($, Backbone, QuizRouter){
 	//initiate the router to update the views
-	this.router = new Router();
+	this.router = new QuizRouter();
 });

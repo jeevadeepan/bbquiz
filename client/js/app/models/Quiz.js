@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'backbone',], function($, _, Backbone){
-	var quiz = Backbone.Model.extend({
+	var Quiz = Backbone.Model.extend({
 		//Set all the default properties here
 		defaults:{
             score: '0',
@@ -11,5 +11,5 @@ define(['jquery', 'underscore', 'backbone',], function($, _, Backbone){
             currentQuestionNumber:0
 		}
 	});
-	return quiz;
+	return Quiz;
 });

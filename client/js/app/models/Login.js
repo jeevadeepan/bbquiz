@@ -1,10 +1,10 @@
 define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
-	var resultModel = Backbone.Model.extend({
+	var Login = Backbone.Model.extend({
 		//Set all the default properties here
 		defaults:{
-			score:0,
+			userName:'',
 			display:true
 		}
 	});
-	return resultModel;
+	return Login;
 });

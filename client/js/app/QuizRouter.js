@@ -3,9 +3,10 @@
 define([
     'jquery',
     'backbone',
-    '/js/app/views/pageView.js'
-], function($, Backbone,PageView){
-		var Router = Backbone.Router.extend({
+    '/js/app/models/Quiz.js',
+    '/js/app/views/Quiz.js'
+], function($, Backbone,QuizModel,QuizView){
+		var QuizRouter = Backbone.Router.extend({
 
 
 			initialize: function(){
@@ -20,12 +21,13 @@ define([
 			},
 
 			/**
-			 *	intialize the appview
+			 *	Initialize the quiz view
 			 */
 			home:function(){
-				var pageView = new PageView();
+				var quizModel = new QuizModel();
+				var quizView = new QuizView({model:quizModel});
 			}
 		});
 
-		return Router;
+		return QuizRouter;
 });

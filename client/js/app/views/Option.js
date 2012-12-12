@@ -4,7 +4,7 @@ define([
 				'backbone'
 				], function($, _, Backbone){
 
-	var optionView = Backbone.View.extend({
+	var Option = Backbone.View.extend({
 	
 	  //Define the element corresponding to the view here
 		el:'',
@@ -31,6 +31,6 @@ define([
 	
 	});
 
-	return optionView;
+	return Option;
 	
 });

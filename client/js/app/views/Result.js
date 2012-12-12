@@ -2,17 +2,17 @@ define([
 				'jquery', 
 				'underscore',
 				'backbone',
-				'/js/app/templates/login.js'
-				], function($, _, Backbone,loginTemplate){
+				'/js/app/templates/result.js'
+				], function($, _, Backbone,ResultTemplate){
 
-	var loginView = Backbone.View.extend({
+	var Result = Backbone.View.extend({
 		tagName:'div',
 		
-		id:'loginWrapper',
+		id:'resultWrapper',
 		
 		//Define all the events here,In backbone all the events use event delegation
 		events :{
-			'click #startGame':'startQuiz'
+			'click #restartGame':'restartQuiz'
 		},
 		
 		/*this function will be called while creating the new instance of the view. All the thirdparty 
@@ -30,17 +30,17 @@ define([
 		*/
 		render: function(){
 			var that = this;
-			that.$el.html(loginTemplate.loginHeader+loginTemplate.login+loginTemplate.loginButton);
+			that.$el.html(ResultTemplate.resultHeader+ResultTemplate.result+ResultTemplate.resultButton);
 		},
 	
 		/**
 		 * function to start the model
 		 * @returns
 		 */
-		startQuiz: function(){
+		restartQuiz: function(){
 			var that = this;
 			var quizModel = that.options.quizModel;
-			quizModel.set('display','quiz');
+			quizModel.set('display','login');
 			that.model.set('display',false);
 		},
 		
@@ -57,6 +57,6 @@ define([
 		
 	});
 
-	return loginView;
+	return Result;
 	
 });

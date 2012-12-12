@@ -5,7 +5,7 @@ define([
 				'/js/app/templates/question.js'
 				], function($, _, Backbone,QuestionTemplate){
 
-	var questionView = Backbone.View.extend({
+	var Question = Backbone.View.extend({
 		/*spectify the tag to be created for this view*/
 		tagName:'div',
 		
@@ -53,6 +53,6 @@ define([
 	
 	});
 
-	return questionView;
+	return Question;
 	
 });

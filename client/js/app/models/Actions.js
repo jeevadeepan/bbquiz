@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
-	var actionsModel = Backbone.Model.extend({
+	var Actions = Backbone.Model.extend({
 		//Set all the default properties here
 		/**
 		 * if there is a previous question, then show the previous button
@@ -10,5 +10,5 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
 			hasNextQuestion:true
 		}
 	});
-	return actionsModel;
+	return Actions;
 });

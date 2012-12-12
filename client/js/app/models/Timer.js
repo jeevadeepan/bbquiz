@@ -1,5 +1,5 @@
 define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
-	var timerModel = Backbone.Model.extend({
+	var Timer = Backbone.Model.extend({
 		//Set all the default properties here
 		defaults:{
 			time:300,
@@ -28,5 +28,5 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
 			this.set("time",time);
 		}
 	});
-	return timerModel;
+	return Timer;
 });

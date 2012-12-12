@@ -5,7 +5,7 @@ define([
 				'/js/app/templates/quiz.js',
 				], function($, _, Backbone,QuizTemplate){
 
-	var timerView = Backbone.View.extend({
+	var Timer = Backbone.View.extend({
 	
 	   //Define the div that should be created
 		tagName:'div',
@@ -46,6 +46,7 @@ define([
 			that.bindDisplay();
 			that.initTimer();
 		},
+		
         getCounter: function(remainingTime){
             var limit = 60,
                 minutes = 0,
@@ -104,6 +105,6 @@ define([
 	});
 	
 
-	return timerView;
+	return Timer;
 	
 });

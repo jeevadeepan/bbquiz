@@ -5,7 +5,7 @@ define([
 		'/js/app/templates/quiz.js',
 		], function($, _, Backbone,QuizTemplate){
 
-	var actionsView = Backbone.View.extend({
+	var Actions = Backbone.View.extend({
 	
 	  //Define the element corresponding to the view here
 		tagName:'div',
@@ -84,6 +84,6 @@ define([
 	
 	});
 
-	return actionsView;
+	return Actions;
 	
 });
