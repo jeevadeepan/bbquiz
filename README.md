@@ -22,3 +22,5 @@ quiz application done in backbone (javascript mvc)
  
 http://localhost:4567/quiz
 
+Demo is available at http://bbquiz.cloudfoundry.com
+
