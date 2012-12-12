@@ -27,8 +27,15 @@ define([
 			//Best practice for having reference of the view
 			var that = this;
 			that.render();
+            that.deg = 0;
 			that.model.on('change:time',function(model,time){
-				that.$el.find('#timer').html(time);
+				//that.$el.find('#timer').html(time);
+                that.deg = that.deg+(360/300);
+                $('#movingHand').css('-webkit-transform', 'rotate('+that.deg+'deg)');
+                $('#movingHand').css('-webkit-transform-origin', '50%100%');
+                var counter = that.getCounter(time);
+                that.$el.find('#counter').text(counter);
+
 			});
 			
 			that.model.on('error',function(model,error){
@@ -39,6 +46,28 @@ define([
 			that.bindDisplay();
 			that.initTimer();
 		},
+        getCounter: function(remainingTime){
+            var limit = 60,
+                minutes = 0,
+                seconds = 0;
+            if(remainingTime > limit){
+                minutes = Math.floor(remainingTime / limit).toFixed();
+                seconds = (remainingTime % limit).toFixed();
+            }
+            else{
+                seconds = (remainingTime * 1).toFixed();
+            }
+
+            if (seconds < 10) {
+                seconds = "0" + seconds;
+            }
+
+            if(minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            var counter = minutes+':'+seconds;
+            return counter;
+        },
 		
 		/*
 		* All the templating updation should be done here, only this  should talk to the template
@@ -46,11 +75,16 @@ define([
 		render: function(){
 			var that = this;
 			that.$el.html(QuizTemplate.timer);
+            var timer = $(QuizTemplate.timer());
+            var totalTime = "05:00";
+            var counter = $(QuizTemplate.counter({'remainingTime':totalTime}));
+            counter.appendTo(that.$el);
+
 		},
 		
 		initTimer: function(){
 			var that = this;
-			that.$el.find('#timer').html(that.model.get("time"));
+			//that.$el.find('#timer').html(that.model.get("time"));
 			that.timerId = setInterval(function(){
 				that.model.decrementTime();
 			},1000);

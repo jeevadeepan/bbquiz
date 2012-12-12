@@ -1,9 +1,12 @@
 /*global define */
 	define([
-		'handlebars'
-	],function(Handlebars){
+		'handlebars',
+        'text!/js/app/templates/timer.hbs',
+        'text!/js/app/templates/counter.hbs',
+	],function(Handlebars, timer, counter){
 		return {
-			timer:'<div id="timer"></div>',
-			buttons:'<div id="actions"><button id="previous">Previous</button><button id="next">Next</button></div>'
+			timer:Handlebars.compile(timer),
+            counter: Handlebars.compile(counter),
+			buttons:'<div id="actions"><button id="next">Next</button></div>'
 		};
 	});
