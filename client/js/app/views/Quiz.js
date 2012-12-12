@@ -35,10 +35,10 @@ define([
 		actionsModel:null,
 		
 		//refernce for collection which acts a data source for the app
-		allQuestions:null,
+		allQuestions:[],
 		
 		//collection have list of answered Questions
-		answeredQuestions:null,
+		answeredQuestions:[],
 		
 		
 		//Define all the events here,In backbone all the events use event delegation
@@ -57,6 +57,20 @@ define([
 			that.model.on('change:currentQuestionNumber',function(model,currentQuestionNumber){
 					that.updateActions();
 					that.showQuestion(currentQuestionNumber);
+			});
+			that.model.on('change:questions',function(model,questions){
+				that.allQuestions = new Questions(questions);
+				var actionsView = that.createtActionsView();
+				that.$el.append(actionsView.el);
+				that.updateActions();
+				that.showQuestion(0);
+			});
+			
+			that.model.on('change:time',function(model,time){
+				var timerModel = new TimerModel();
+				timerModel.set("time",time);
+				var timerView = that.createTimerView({model:timerModel});
+				that.$el.append(timerView.el);
 			});
 		},
 		
@@ -108,32 +122,7 @@ define([
 		 */
 		startQuiz: function(){
 			var that = this;
-			$.ajax({
-				  url: 'client/quiz.json',
-				  dataType: 'json',
-				  data: {},
-				  success: function(data){
-					  that.getAllQuestions(data);
-					  that.updateActions();
-					  that.showQuestion(0);
-				  }
-				});
-		},
-		
-		/**
-		 * popuplate all the questions into a collection and create actions and timer view
-		 * @param data
-		 * @returns
-		 */
-		getAllQuestions: function(data){
-			var that=this;
-			//storing all the questions into the view.
-			that.allQuestions = new Questions(data.questions);
-			that.answeredQuestions = new Questions();
-			timerView = that.createTimerView(data);
-			actionsView = that.createtActionsView();
-			this.$el.append(timerView.el);
-			this.$el.append(actionsView.el);
+			that.model.fetch();
 		},
 		
 		
