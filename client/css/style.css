@@ -359,7 +359,7 @@ body {
 }
 
 #actions{
-    width: 100%;
+    width: 320px;
     text-align: center;
     display: inline-block;
     margin-top: 10%;
@@ -371,7 +371,7 @@ body {
 	border:2px solid #555555;
 	padding:10px;
 	margin:10px;
-    width:350px;
+    width:320px;
 
 }
 
@@ -380,7 +380,7 @@ body {
 }
 
 
-#timerWrapper,#scoreWrapper{
+#scoreWrapper{
 	height:50px;
 	text-align:center;
 	vertical-align:middle;
@@ -388,14 +388,14 @@ body {
 }
 
 
-#timerWrapper #timer{
+ /*#timer{
 	width:100px;
 	color:#fff;
 	font-size:16pt;
 	position:relative;
 	left:45%;
 	top:20%;
-}
+}  */
 
 #scoreWrapper div{
 	color:#fff;
@@ -412,7 +412,7 @@ body {
 
 #optionsWrapper div{
 	color:#fff;
-	font-size:16pt
+	font-size:16pt;
 	height:200px;
 }
 
@@ -431,4 +431,42 @@ body {
 
 #actions #next{
     float:right;
+}
+
+
+/*  TIMER   */
+#timer{
+    background-image:url('/img/timer_start.png');
+    background-repeat: no-repeat;
+    width: 105px;
+    height: 120px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+
+}
+#movingHand{
+    width: 6px;
+    background: white;
+    position: absolute;
+    top: 28px;
+    left: 49px;
+    height: 37px;
+    border-radius: 10px;
+    z-index: 2;
+    -webkit-transform: rotate(0deg);
+    -webkit-transform-origin: 50% 100%;
+    -moz-transform: rotate(0deg);
+    -moz-transform-origin: 50% 100%;
+    transform: rotate(0deg);
+    transform-origin: 50% 100%;
+
+}
+#timerWrapper{
+
+
+}
+#counter{
+    color: #00DEFF;
+    font-size: 16px;
 }
