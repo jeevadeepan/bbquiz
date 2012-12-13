@@ -22,7 +22,6 @@ define([
 			//Best practice for having reference of the view
 			var that = this;
 			that.render();
-			that.bindDisplay();
 		},
 		
 		/*
@@ -40,19 +39,6 @@ define([
 		restartQuiz: function(){
 			var that = this;
 			var quizModel = that.options.quizModel;
-			quizModel.set('display','login');
-			that.model.set('display',false);
-		},
-		
-		bindDisplay: function(){
-			var that = this;
-			that.model.on("change:display",function(model,display){
-				if(display){
-					that.$el.removeClass('hide');
-				}else{
-					that.$el.addClass('hide');
-				}
-			});
 		}
 		
 	});
