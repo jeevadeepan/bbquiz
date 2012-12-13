@@ -52,90 +52,74 @@ define([
 		initialize: function(){
 			//Best practice for having reference of the view
 			var that = this;
-			that.showLoginView();
-			that.bindDisplay();
+			this.on('renderLoginView',that.renderLoginView);
+			this.on('renderResultView',that.renderResultView);
+			
 			that.model.on('change:currentQuestionNumber',function(model,currentQuestionNumber){
 					that.updateActions();
 					that.showQuestion(currentQuestionNumber);
 			});
+			
+			
 			that.model.on('change:questions',function(model,questions){
 				that.allQuestions = new Questions(questions);
 				var actionsView = that.createtActionsView();
 				that.$el.append(actionsView.el);
 				that.updateActions();
-				that.showQuestion(0);
+				that.model.set('currentQuestionNumber',0);
 			});
 			
 			that.model.on('change:time',function(model,time){
 				var timerModel = new TimerModel();
 				timerModel.set("time",time);
-				var timerView = that.createTimerView({model:timerModel});
+				timerModel.set("totalTime",time);
+				var timerView = new TimerView({model:timerModel,quizModel:that.model});
 				that.$el.append(timerView.el);
 			});
+			
+			that.render();
 		},
 		
 		/*
 		* All the templating updation should be done here, only this  should talk to the template
 		*/
 		render: function(){
-			
+			this.trigger('renderLoginView');
 		},
 		
+		
 		/**
-		 * function to show login page view, which shows the logic details for the user
+		 * Since Login view is the default view and should be show on rendering the quiz app, 
+		 * the login view will be initialized and added  
+		 * @returns
 		 */
-		showLoginView:function(){
+		renderLoginView: function(){
 			var that = this;
-		    that.loginModel = new LoginModel();
+		    this.loginModel = new LoginModel();
 			var loginView = new LoginView({
-					model:that.loginModel,
-					quizModel:that.model
+					model:this.loginModel,
+					quizModel:this.model
 			});
-
-			that.$el.append(loginView.el);
+			this.$el.append(loginView.el);
+			loginView.on('startQuiz',this.startQuiz,this);
 		},
 		
-		/**
-		 * view display update function, based on the display set in the model
-		 */
-		bindDisplay: function(){
-			var that = this,
-			quizModel = that.model;
-			quizModel.on("change:display",function(model,display){
-				if(display == 'quiz'){
-					that.loginModel.set("display",false);
-					that.startQuiz();
-				}else if(display == 'result'){
-					that.timerModel.set("display",false);
-					that.actionsModel.set("display",false);
-					that.showResult();
-				}else if(display == 'login'){
-					that.resultModel.set("display",false);
-					that.showLoginView();
-				}
-			});
-		},
+		
 
 		/**
 		 * function to start the quiz by making an ajax request to the server and getting the list of 
 		 * question and options
 		 */
 		startQuiz: function(){
-			var that = this;
-			that.model.fetch();
+			this.model.fetch();
+			this.trigger('renderQuestionView');
+		},
+		
+		renderQuestionView:function(){
+			var question = that.allQuestions.at(0);
 		},
 		
 		
-		/**
-		 *function to initialize the timer with the given data
-		 */
-		createTimerView: function(){
-			var that =this;
-			that.timerModel = new TimerModel();
-			return new TimerView({model:that.timerModel,
-								  quizModel:that.model
-								});
-		},
 		
 		/**
 		 * function to initialize the action with given data
@@ -179,7 +163,7 @@ define([
 				return question;
 			}else{
 				that.$el.find('#questionWrapper').remove();
-				that.model.set('display','result');
+				that.trigger('renderResultView');
 			}
 			
 		},

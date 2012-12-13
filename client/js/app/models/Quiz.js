@@ -9,11 +9,10 @@ define(['jquery', 'underscore', 'backbone',], function($, _, Backbone){
             randomized:false,
             display:'login',
             questions:null,
-            currentQuestionNumber:0
+            currentQuestionNumber:null
 		},
 		urlRoot:'/client/quiz.json',
 		parse:function(response){
-			console.log(response);
 			this.set("randomized",response.randomized);
 			this.set("time",response.time);
 			this.set("questions",response.questions);
