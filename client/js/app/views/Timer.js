@@ -16,26 +16,21 @@ define([
 		
 		//Define all the events here,In backbone all the events use event delegation
 		events :{
-		
-		
 		},
 		
 		/*this function will be called while creating the new instance of the view. All the thirdparty 
 		* code corresponding to the view. should be initialized here
 		*/
 		initialize: function(){
-			//Best practice for having reference of the view
 			var that = this;
 			that.render();
 			
             //Update the total time 
 			that.model.on('change:time',function(model,time){
-				that.model.covertToDegree();
-                that.$el.find('#counter').text(that.model.getFormattedTime());
+                that.$el.find('#counter').text(that.model.get("formattedTime"));
 			});
 			
 			that.model.on('change:degree',function(model,degree){
-				 console.log(degree);
 				 $('#movingHand').css('-webkit-transform', 'rotate('+degree+'deg)');
 	             $('#movingHand').css('-webkit-transform-origin', '50%100%');
 			});
@@ -53,11 +48,10 @@ define([
 		* All the templating updation should be done here, only this  should talk to the template
 		*/
 		render: function(){
-			var that = this;
-			that.$el.html(QuizTemplate.timer);
+			this.$el.html(QuizTemplate.timer);
             var timer = $(QuizTemplate.timer());
-            var counter = $(QuizTemplate.counter({'remainingTime':that.model.getFormattedTotalTime()}));
-            counter.appendTo(that.$el);
+            var counter = $(QuizTemplate.counter({'remainingTime':this.model.get("formattedTotalTime")}));
+            counter.appendTo(this.$el);
 		},
 		
 		/**
@@ -66,7 +60,6 @@ define([
 		 */
 		initTimer: function(){
 			var that = this;
-			//that.$el.find('#timer').html(that.model.get("time"));
 			that.timerId = setInterval(function(){
 				that.model.decrementTime();
 			},1000);

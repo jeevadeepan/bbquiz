@@ -2,9 +2,18 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
 	var Timer = Backbone.Model.extend({
 		//Set all the default properties here
 		defaults:{
-			time:300,
+			time:0,
+			formattedTime:"",
 			degree:0,
-            totalTime: 300
+            totalTime: 0,
+            formattedTotalTime:""
+		},
+		
+		initialize: function(){
+			this.set("time",this.get("totalTime"));
+			this.set("formattedTime",this.getFormattedTime());
+			this.set("formattedTotalTime",this.getFormattedTotalTime());
+			this.covertToDegree();
 		},
 		
 		/**
@@ -50,6 +59,8 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone){
 		decrementTime:function(){
 			var time = this.get("time")-1;
 			this.set("time",time);
+			this.set("formattedTime",this.getFormattedTime());
+			this.covertToDegree();
 		}
 	});
 	

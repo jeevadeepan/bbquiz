@@ -70,10 +70,8 @@ define([
 			});
 			
 			that.model.on('change:time',function(model,time){
-				var timerModel = new TimerModel();
-				timerModel.set("time",time);
-				timerModel.set("totalTime",time);
-				var timerView = new TimerView({model:timerModel,quizModel:that.model});
+				var timerModel = new TimerModel({"totalTime":time});
+				var timerView = new TimerView({model:timerModel});
 				that.$el.append(timerView.el);
 			});
 			
