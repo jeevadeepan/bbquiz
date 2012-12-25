@@ -5,17 +5,16 @@ define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
             time : null,
             randomized : false,
             questions : null,
-            currentQuestionNumber : null
+            currentIndex : null
         },
-        urlRoot : '/client/quiz.json',
-        initialize : function() {
-            this.fetch();
+
+        validate : function(attrs) {
+            if (attrs.currentIndex > attrs.questions.length - 1) {
+                return "All Questions completed";
+            }
         },
-        parse : function(response) {
-            this.set("randomized", response.randomized);
-            this.set("time", response.time);
-            this.set("questions", response.questions);
-        }
+
+        urlRoot : '/client/quiz.json'
     });
     return Quiz;
 });

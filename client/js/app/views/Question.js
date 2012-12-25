@@ -22,10 +22,12 @@ define(
                          */
                         initialize : function() {
                             // Best practice for having reference of the view
-                            var that = this;
-                            that.render();
-                            that.showQuestion();
-                            that.showOption();
+                            this.render();
+                            this.showQuestion();
+                            this.showOption();
+                            this.model.on("error", function(model, error) {
+                                alert(error);
+                            });
                         },
 
                         /*

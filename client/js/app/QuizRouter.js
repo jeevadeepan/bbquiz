@@ -2,10 +2,11 @@
 
 define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
         '/js/app/views/Login.js', '/js/app/models/Quiz.js',
-        '/js/app/views/Quiz.js', '/js/app/models/Result.js',
-        '/js/app/views/Result.js', '/js/app/views/Help.js' ], function($,
-        Backbone, LoginModel, LoginView, QuizModel, QuizView, ResultModel,
-        ResultView, HelpView) {
+        '/js/app/views/Quiz.js', '/js/app/collections/Questions.js',
+        '/js/app/models/Result.js', '/js/app/views/Result.js',
+        '/js/app/views/Help.js' ], function($, Backbone, LoginModel, LoginView,
+        QuizModel, QuizView, QuestionsCollection, ResultModel, ResultView,
+        HelpView) {
     var QuizRouter = Backbone.Router.extend( {
 
         initialize : function() {
@@ -33,13 +34,11 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
             });
             // binding the events
             loginView.on('startQuiz', function() {
-                console.log("inside the start Quiz");
                 that.navigate('quiz', {
                     trigger : true
                 });
             }, this);
             loginView.on('showHelp', function() {
-                console.log("inside the Help page");
                 that.navigate('help', {
                     trigger : true
                 });
@@ -53,11 +52,25 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * @returns
          */
         startQuiz : function() {
-            console.log("redirecting to the quiz page");
+            var that = this;
             var quizModel = new QuizModel();
-            console.log(quizModel);
-            var quizView = new QuizView( {
-                model : quizModel
+            // make an ajax call and get the data
+            var req = quizModel.fetch();
+            // create the view on getting the data from server
+            req.done(function(response) {
+                var questions = new QuestionsCollection(response.questions);
+                quizModel.set(response);
+                var quizView = new QuizView( {
+                    model : quizModel,
+                    collection : questions
+                });
+                quizView.on('showResult', function() {
+                    that.navigate('result', {
+                        trigger : true
+                    });
+
+                }, this);
+                $('#main-content').append(quizView.el);
             });
         },
 
@@ -67,11 +80,9 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * @returns
          */
         showHelp : function() {
-            console.log("redirecting to the help page");
             var helpView = new HelpView();
             // binding the events
             helpView.on('startQuiz', function() {
-                console.log("inside the start Quiz");
                 this.navigate('quiz', {
                     trigger : true
                 });
@@ -85,9 +96,8 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * @returns
          */
         showResult : function() {
-            console.log("redirecting to the result page");
             var resultModel = new ResultModel();
-            var resultView = new ResultModel( {
+            var resultView = new ResultView( {
                 model : resultModel
             });
             // binding the events
@@ -96,7 +106,7 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
                     trigger : true
                 });
             }, this);
-
+            $('#main-content').append(resultView.el);
         }
 
     });

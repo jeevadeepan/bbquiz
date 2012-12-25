@@ -50,7 +50,7 @@ define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
          */
         validate : function(attrs) {
             if (attrs.time === 0) {
-                return "Quiz time finished";
+                return "Time's up !!";
             }
         },
 

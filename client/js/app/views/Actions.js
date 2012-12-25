@@ -1,89 +1,68 @@
-define([
-        'jquery', 
-		'underscore',
-		'backbone',
-		'/js/app/templates/quiz.js',
-		], function($, _, Backbone,QuizTemplate){
+define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/action.js' ],
+        function($, _, Backbone, ActionTemplate) {
 
-	var Actions = Backbone.View.extend({
-	
-	  //Define the element corresponding to the view here
-		tagName:'div',
-		
-		id:'actionsWrapper',
-		
-		//Define all the events here,In backbone all the events use event delegation
-		events :{
-			'click #previous': 'showPreviousQuestion',
-			'click #next': 'showNextQuestion'
-		},
-		
-		/*this function will be called while creating the new instance of the view. All the thirdparty 
-		* code corresponding to the view. should be initialized here
-		*/
-		initialize: function(){
-			//Best practice for having reference of the view
-			var that = this;
-			that.render();
-			this.model.on("change:hasPreviousQuestion",function(model,hasPreviousQuestion){
-					that.togglePreviousButton(hasPreviousQuestion);
-				});
-			this.model.on("change:hasNextQuestion",function(model,hasNextQuestion){
-					that.toggleNextButton(hasNextQuestion);
-			});
-			that.bindDisplay();
-		},
-		
-		/*
-		* All the templating updation should be done here, only this  should talk to the template
-		*/
-		render: function(){
-			this.$el.html(QuizTemplate.buttons);
-		},
-		
-		togglePreviousButton: function(hasPreviousQuestion){
-			var that = this;
-			if(hasPreviousQuestion){
-				that.$el.find('#previous').removeClass('hide');
-			}else{
-				that.$el.find('#previous').addClass('hide');
-			}
-		},
-		
-		toggleNextButton: function(hasNextQuestion){
-			var that = this;
-			if(hasNextQuestion){
-				that.$el.find('#next').removeClass('hide');
-			}else{
-				that.$el.find('#next').addClass('hide');
-			}
-		},
-		
-		showPreviousQuestion: function(){
-			var that = this;
-			var currentQuestionNumber = that.options.quizModel.get('currentQuestionNumber');
-			that.options.quizModel.set('currentQuestionNumber',currentQuestionNumber-1);
-		},
-		
-		showNextQuestion: function(){
-			var that = this;
-			var currentQuestionNumber = that.options.quizModel.get('currentQuestionNumber');
-			that.options.quizModel.set('currentQuestionNumber',currentQuestionNumber+1);
-		},
-		
-		bindDisplay: function(){
-			var that = this;
-			that.model.on("change:display",function(model,display){
-				if(display){
-					that.$el.removeClass('hide');
-				}else{
-					that.$el.addClass('hide');
-				}
-			});
-		}
-	
-	});
+            var Actions = Backbone.View.extend( {
 
-	return Actions;
-	
-});
+                // Define the element corresponding to the view here
+                tagName : 'div',
+
+                id : 'actionsWrapper',
+
+                // Define all the events here,In backbone all the events use
+                // event delegation
+                events : {
+                    'click .quitButton' : 'showResult',
+                    'click .nextButton' : 'validateAndShowNextQuestion',
+                    'click .passButton' : 'showNextQuestion'
+                },
+
+                /*
+                 * this function will be called while creating the new instance
+                 * of the view. All the thirdparty code corresponding to the
+                 * view. should be initialized here
+                 */
+                initialize : function() {
+                    // Best practice for having reference of the view
+                    this.render();
+                },
+
+                /*
+                 * All the templating updation should be done here, only this
+                 * should talk to the template
+                 */
+                render : function() {
+                    this.$el.html(ActionTemplate.buttons);
+                },
+
+                /**
+                 * show result page
+                 * 
+                 * @returns
+                 */
+                showResult : function() {
+                    this.trigger("showResult");
+                },
+
+                /**
+                 * validate if the question is answered and show next question
+                 * 
+                 * @returns
+                 */
+                validateAndShowNextQuestion : function() {
+                    this.trigger("validateAndShowNext");
+                },
+
+                /**
+                 * show next question
+                 * 
+                 * @returns
+                 */
+                showNextQuestion : function() {
+                    this.trigger("showNext");
+                }
+
+            });
+
+            return Actions;
+
+        });
