@@ -8,7 +8,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/Login.js' ],
                     this.loginModel = null;
                 }
             });
-
+            
             test('Test init properties in login model', function() {
                 equal(this.loginModel.get("userName"), '',
                         'Default user name is empty');
@@ -43,6 +43,18 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/Login.js' ],
                         notEqual('Please enter User name', validate,
                                 'username is set');
 
-                    });
+            });
+            
+            /**
+             * Testing the validate method using Sinon JS spies
+             */
+            test('Tesing the validate method is called after setting the username',function(){
+            	//adding spy on the set method
+            	this.spy(this.loginModel,"validate");
+            	this.loginModel.set("userName","$$$");
+            	ok(this.loginModel.validate.calledOnce);
+            	this.loginModel.set("userName","");
+            	ok(this.loginModel.validate.calledTwice);
+            });
 
         });

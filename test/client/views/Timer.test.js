@@ -8,20 +8,36 @@ define(['jquery',
 			setup:function()
 			{
 				this.timerModel = new TimerModel({totalTime:200});
-				this.timerView = new TimerView({model:this.timerModel});
+				
+				//using sinon js fake timers
+				this.clock = sinon.useFakeTimers();
 			},
 			teardown:function()
 			{
 				this.timerView = null;
-				this.timerModel = null;				
+				this.timerModel = null;		
+				this.clock.restore();
             }
 	});
 	
 	test('Test init properties in timer View',function(){
-			/*Neeed to improve it using Sinon JS or using asynchronous start() and stop () methods of Quinit , 
-			 *Spy it and test the call backs
-			*/
+			this.timerView = new TimerView({model:this.timerModel});
 			deepEqual(this.timerView.model,this.timerModel,"timer view with model is initialized");
      });
+	
+	
+	test('Testing timer view initialize method which calls the decrement Time method after 1 sec', function(){
+			/**
+			 * Spies and fake timers are used to test the decrement time method
+			 */
+			this.timerView = new TimerView({model:this.timerModel});
+			this.spy(this.timerModel,"decrementTime");
+			this.clock.tick(1001);
+			ok(this.timerModel.decrementTime.calledOnce);
+			this.clock.tick(1001);
+			ok(this.timerModel.decrementTime.calledTwice);	
+	});
+	
+	
 	
 });

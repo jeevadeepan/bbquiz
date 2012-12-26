@@ -47,6 +47,7 @@ define( [ 'jquery', 'underscore', 'backbone',
             });
             timerView.on("showResult", function() {
                 that.remove();
+                console.log(that.collection.at(0).changedAttributes);
                 //that.model.save(that.collection.getAnsweredQuestions());
                 that.trigger("showResult");
             });
@@ -55,6 +56,7 @@ define( [ 'jquery', 'underscore', 'backbone',
             this.model.on("error", function(model, error) {
                 alert(error);
                 that.remove();
+                console.log(that.collection.at(0).changedAttributes);
                 //that.model.save(that.collection.getAnsweredQuestions());
                 that.trigger("showResult");
             });
@@ -74,8 +76,8 @@ define( [ 'jquery', 'underscore', 'backbone',
 
             var actionsView = new ActionsView();
             actionsView.on("showResult", function() {
-            	var musketeers = that.collection.where({job: "Musketeer"});
                 that.remove();
+                console.log(that.collection.at(0).changedAttributes);
                 //that.model.save(that.collection.getAnsweredQuestions());
                 that.trigger("showResult");
             });
