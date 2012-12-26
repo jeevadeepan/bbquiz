@@ -4,7 +4,7 @@ define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
         defaults : {
             time : null,
             randomized : false,
-            questions : null,
+            questions : [],
             currentIndex : null
         },
 
