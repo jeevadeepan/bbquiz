@@ -6,6 +6,8 @@ define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
         // Set all the default properties here
         defaults : {
             question : "",
+            questionNumber:0,
+            totalQuestions:0,
             answers : [],
             weight : 0,
             type : "",

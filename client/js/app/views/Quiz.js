@@ -47,6 +47,7 @@ define( [ 'jquery', 'underscore', 'backbone',
             });
             timerView.on("showResult", function() {
                 that.remove();
+                //that.model.save(that.collection.getAnsweredQuestions());
                 that.trigger("showResult");
             });
             this.$el.append(timerView.el);
@@ -54,6 +55,7 @@ define( [ 'jquery', 'underscore', 'backbone',
             this.model.on("error", function(model, error) {
                 alert(error);
                 that.remove();
+                //that.model.save(that.collection.getAnsweredQuestions());
                 that.trigger("showResult");
             });
 
@@ -62,7 +64,9 @@ define( [ 'jquery', 'underscore', 'backbone',
              */
             this.model.on("change:currentIndex", function(model, currentIndex) {
                 var questionModel = that.collection.at(currentIndex);
-                var questionView = new QuestionView( {
+                questionModel.set("questionNumber",currentIndex+1);
+                questionModel.set("totalQuestions",that.collection.length);
+                var questionView = new QuestionView({
                     model : questionModel
                 });
                 $(questionView.el).insertAfter(that.$el.find('#timerWrapper'));
@@ -70,7 +74,9 @@ define( [ 'jquery', 'underscore', 'backbone',
 
             var actionsView = new ActionsView();
             actionsView.on("showResult", function() {
+            	var musketeers = that.collection.where({job: "Musketeer"});
                 that.remove();
+                //that.model.save(that.collection.getAnsweredQuestions());
                 that.trigger("showResult");
             });
 
@@ -84,8 +90,7 @@ define( [ 'jquery', 'underscore', 'backbone',
                 var currentQuestion = that.collection.at(that.model
                         .get("currentIndex"));
                 if (currentQuestion.isAnswered()) {
-                    that.model.set("currentIndex", that.model
-                            .get("currentIndex") + 1);
+                	this.trigger("showNext");
                 } else {
                     alert("Please Answer the question to proceed");
                 }
