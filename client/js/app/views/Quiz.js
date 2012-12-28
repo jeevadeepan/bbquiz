@@ -45,26 +45,20 @@ define( [ 'jquery', 'underscore', 'backbone',
             var timerView = new TimerView( {
                 model : timerModel
             });
-            timerView.on("showResult", function() {
-                that.remove();
-                console.log(that.collection.at(0).changedAttributes);
-                //that.model.save(that.collection.getAnsweredQuestions());
-                that.trigger("showResult");
-            });
             this.$el.append(timerView.el);
 
-            this.model.on("error", function(model, error) {
+            this.model.listenTo("error", function(model, error) {
                 alert(error);
                 that.remove();
                 console.log(that.collection.at(0).changedAttributes);
                 //that.model.save(that.collection.getAnsweredQuestions());
-                that.trigger("showResult");
+                Backbone.history.navigate("/result",{trigger:true});
             });
 
             /**
              * Bind the model current Index with the question
              */
-            this.model.on("change:currentIndex", function(model, currentIndex) {
+            this.model.listenTo("change:currentIndex", function(model, currentIndex) {
                 var questionModel = that.collection.at(currentIndex);
                 questionModel.set("questionNumber",currentIndex+1);
                 questionModel.set("totalQuestions",that.collection.length);
@@ -75,20 +69,14 @@ define( [ 'jquery', 'underscore', 'backbone',
             });
 
             var actionsView = new ActionsView();
-            actionsView.on("showResult", function() {
-                that.remove();
-                console.log(that.collection.at(0).changedAttributes);
-                //that.model.save(that.collection.getAnsweredQuestions());
-                that.trigger("showResult");
-            });
 
-            actionsView.on("showNext", function() {
+            actionsView.listenTo("showNext", function() {
                 that.$el.find("#questionWrapper").remove();
                 that.model.set("currentIndex",
                         that.model.get("currentIndex") + 1);
             });
 
-            actionsView.on("validateAndShowNext", function() {
+            actionsView.listenTo("validateAndShowNext", function() {
                 var currentQuestion = that.collection.at(that.model
                         .get("currentIndex"));
                 if (currentQuestion.isAnswered()) {
@@ -104,6 +92,15 @@ define( [ 'jquery', 'underscore', 'backbone',
              * show the question at current Index
              */
             this.model.set("currentIndex", 0);
+        },
+        
+        /**
+         * method to unbind all event handlers and remove the view from the DOM
+         * @returns
+         */
+        destroy: function(){
+        	this.stopListening();
+        	this.remove();
         }
 
     });

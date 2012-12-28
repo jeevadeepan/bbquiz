@@ -26,7 +26,7 @@ define(
                             this.showQuestionDetails();
                             this.showQuestion();
                             this.showOption();
-                            this.model.on("error", function(model, error) {
+                            this.model.listenTo("error", function(model, error) {
                                 alert(error);
                             });
                         },
@@ -130,6 +130,15 @@ define(
                                     break;
                                 }
                             }
+                        },
+                        
+                        /**
+                         * method to unbind all event handlers and remove the view from the DOM
+                         * @returns
+                         */
+                        destroy: function(){
+                        	this.stopListening();
+                        	this.remove();
                         }
 
                     });

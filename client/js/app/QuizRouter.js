@@ -13,6 +13,8 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
             // Tells backbone to start watch for hash change events
             Backbone.history.start();
         },
+        
+        currentView : null,
 
         // All the backbone routes
         routes : {
@@ -27,22 +29,12 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * show login page
          */
         login : function() {
-            var that = this;
+        	this.destroyCurrentView();
             var loginModel = new LoginModel();
-            var loginView = new LoginView( {
+            thisdestroyCurrentView();
+            this.currentView = new LoginView( {
                 model : loginModel
             });
-            // binding the events
-            loginView.on('startQuiz', function() {
-                that.navigate('quiz', {
-                    trigger : true
-                });
-            }, this);
-            loginView.on('showHelp', function() {
-                that.navigate('help', {
-                    trigger : true
-                });
-            }, this);
             $('#main-content').append(loginView.el);
         },
 
@@ -52,7 +44,7 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * @returns
          */
         startQuiz : function() {
-            var that = this;
+        	this.destroyCurrentView();
             var quizModel = new QuizModel();
             // make an ajax call and get the data
             var req = quizModel.fetch();
@@ -60,16 +52,10 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
             req.done(function(response) {
                 var questions = new QuestionsCollection(response.questions);
                 quizModel.set(response);
-                var quizView = new QuizView( {
+                	this.currentView = new QuizView( {
                     model : quizModel,
                     collection : questions
                 });
-                quizView.on('showResult', function() {
-                    that.navigate('result', {
-                        trigger : true
-                    });
-
-                }, this);
                 $('#main-content').append(quizView.el);
             });
         },
@@ -80,13 +66,8 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * @returns
          */
         showHelp : function() {
-            var helpView = new HelpView();
-            // binding the events
-            helpView.on('startQuiz', function() {
-                this.navigate('quiz', {
-                    trigger : true
-                });
-            }, this);
+        	 this.destroyCurrentView();
+             this.currentView = new HelpView();
             $('#main-content').append(helpView.el);
         },
 
@@ -96,17 +77,22 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * @returns
          */
         showResult : function() {
+        	this.destroyCurrentView();
             var resultModel = new ResultModel();
-            var resultView = new ResultView( {
+            this.currentView = new ResultView( {
                 model : resultModel
             });
-            // binding the events
-            resultView.on('showLogin', function() {
-                this.navigate('login', {
-                    trigger : true
-                });
-            }, this);
             $('#main-content').append(resultView.el);
+        },
+        
+        /**
+         * destroy current view 
+         * @returns
+         */
+        destroyCurrentView : function(){
+        	if(this.currentView){
+        		this.currentView.destroy();        	
+        	}
         }
 
     });

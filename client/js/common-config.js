@@ -5,7 +5,7 @@ function includeCommonConfig() {
             jquery: 'lib/jquery-1.7.2.min',
             jqueryui: 'lib/jqueryui',
             underscore: 'lib/underscore-1.3.3',
-            backbone: 'lib/backbone-0.9.2',
+            backbone: 'lib/backbone-min',
             handlebarslib: 'lib/handlebars-1.0.rc.1',
             handlebars: 'common/handlebars-bootstrap'
         },

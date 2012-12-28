@@ -40,7 +40,8 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/action.js' ],
                  * @returns
                  */
                 showResult : function() {
-                    this.trigger("showResult");
+                	that.destroy();
+                	Backbone.history.navigate("/result",{trigger:true});
                 },
 
                 /**
@@ -59,6 +60,15 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/action.js' ],
                  */
                 showNextQuestion : function() {
                     this.trigger("showNext");
+                },
+                
+                /**
+                 * method to unbind all event handlers and remove the view from the DOM
+                 * @returns
+                 */
+                destroy: function(){
+                	this.stopListening();
+                	this.remove();
                 }
 
             });

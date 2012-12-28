@@ -38,7 +38,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                  */
                 initialize : function() {
                     this.render();
-                    this.model.on('error', function(model, error) {
+                    this.model.listenTo('error', function(model, error) {
                         alert(error);
                     });
                 },
@@ -64,7 +64,8 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                         'userName' : $('#inputWrapper > input').val()
                     }, {
                         success : function(model, response) {
-                            that.trigger('startQuiz');
+                    		//show the quiz
+                    		Backbone.history.navigate('/#quiz', {trigger: true});
                             that.destroy();
                             return;
                         },
@@ -80,8 +81,8 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                  * @returns
                  */
                 showHelp : function() {
-                    this.remove();
-                    this.trigger('showHelp');
+                    //show the help
+                    Backbone.history.navigate('/#help', {trigger: true});
                 },
 
                 /**
@@ -94,14 +95,12 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                 },
 
                 /**
-                 * function to undelegate all the events binded and remove the
-                 * view
-                 * 
+                 * method to unbind all event handlers and remove the view from the DOM
                  * @returns
                  */
-                destroy : function() {
-                    this.undelegateEvents();
-                    this.$el.html('');
+                destroy: function(){
+                	this.stopListening();
+                	this.remove();
                 }
 
             });
