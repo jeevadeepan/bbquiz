@@ -24,22 +24,26 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js', ],
                     that.render();
 
                     // Update the total time
-                    that.model.listenTo('change:time', function(model, time) {
+                    that.listenTo(this.model, 'change:time', function(model,
+                            time) {
                         that.$el.find('#counter').text(
                                 that.model.get("formattedTime"));
                     });
 
-                    that.model.listenTo('change:degree', function(model, degree) {
+                    that.listenTo(this.model, 'change:degree', function(model,
+                            degree) {
                         $('#movingHand').css('-webkit-transform',
                                 'rotate(' + degree + 'deg)');
                         $('#movingHand').css('-webkit-transform-origin',
                                 '50%100%');
                     });
 
-                    that.model.listenTo('error', function(model, error) {
+                    that.listenTo(this.model, 'error', function(model, error) {
                         clearInterval(that.timerId);
                         alert(error);
-                        Backbone.history.navigate('/#result', {trigger:true})
+                        Backbone.history.navigate('/#result', {
+                            trigger : true
+                        })
                         that.trigger('showResult');
                         that.destroy();
                         // reset
@@ -71,14 +75,16 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js', ],
                         that.model.decrementTime();
                     }, 1000);
                 },
-                
+
                 /**
-                 * method to unbind all event handlers and remove the view from the DOM
+                 * method to unbind all event handlers and remove the view from
+                 * the DOM
+                 * 
                  * @returns
                  */
-                destroy: function(){
-                	this.stopListening();
-                	this.remove();
+                destroy : function() {
+                    this.stopListening();
+                    this.remove();
                 }
 
             });

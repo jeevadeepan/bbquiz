@@ -13,7 +13,7 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
             // Tells backbone to start watch for hash change events
             Backbone.history.start();
         },
-        
+
         currentView : null,
 
         // All the backbone routes
@@ -29,13 +29,12 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * show login page
          */
         login : function() {
-        	this.destroyCurrentView();
+            this.destroyCurrentView();
             var loginModel = new LoginModel();
-            thisdestroyCurrentView();
             this.currentView = new LoginView( {
                 model : loginModel
             });
-            $('#main-content').append(loginView.el);
+            $('#main-content').append(this.currentView.el);
         },
 
         /**
@@ -44,7 +43,7 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * @returns
          */
         startQuiz : function() {
-        	this.destroyCurrentView();
+            this.destroyCurrentView();
             var quizModel = new QuizModel();
             // make an ajax call and get the data
             var req = quizModel.fetch();
@@ -52,11 +51,11 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
             req.done(function(response) {
                 var questions = new QuestionsCollection(response.questions);
                 quizModel.set(response);
-                	this.currentView = new QuizView( {
+                this.currentView = new QuizView( {
                     model : quizModel,
                     collection : questions
                 });
-                $('#main-content').append(quizView.el);
+                $('#main-content').append(this.currentView.el);
             });
         },
 
@@ -66,9 +65,9 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * @returns
          */
         showHelp : function() {
-        	 this.destroyCurrentView();
-             this.currentView = new HelpView();
-            $('#main-content').append(helpView.el);
+            this.destroyCurrentView();
+            this.currentView = new HelpView();
+            $('#main-content').append(this.currentView.el);
         },
 
         /**
@@ -77,22 +76,23 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * @returns
          */
         showResult : function() {
-        	this.destroyCurrentView();
+            this.destroyCurrentView();
             var resultModel = new ResultModel();
             this.currentView = new ResultView( {
                 model : resultModel
             });
-            $('#main-content').append(resultView.el);
+            $('#main-content').append(this.currentView.el);
         },
-        
+
         /**
-         * destroy current view 
+         * destroy current view
+         * 
          * @returns
          */
-        destroyCurrentView : function(){
-        	if(this.currentView){
-        		this.currentView.destroy();        	
-        	}
+        destroyCurrentView : function() {
+            if (this.currentView) {
+                this.currentView.destroy();
+            }
         }
 
     });

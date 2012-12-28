@@ -38,7 +38,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                  */
                 initialize : function() {
                     this.render();
-                    this.model.listenTo('error', function(model, error) {
+                    this.listenTo(this.model, 'error', function(model, error) {
                         alert(error);
                     });
                 },
@@ -64,8 +64,10 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                         'userName' : $('#inputWrapper > input').val()
                     }, {
                         success : function(model, response) {
-                    		//show the quiz
-                    		Backbone.history.navigate('/#quiz', {trigger: true});
+                            // show the quiz
+                            Backbone.history.navigate('/#quiz', {
+                                trigger : true
+                            });
                             that.destroy();
                             return;
                         },
@@ -81,8 +83,10 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                  * @returns
                  */
                 showHelp : function() {
-                    //show the help
-                    Backbone.history.navigate('/#help', {trigger: true});
+                    // show the help
+                    Backbone.history.navigate('/#help', {
+                        trigger : true
+                    });
                 },
 
                 /**
@@ -95,12 +99,14 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                 },
 
                 /**
-                 * method to unbind all event handlers and remove the view from the DOM
+                 * method to unbind all event handlers and remove the view from
+                 * the DOM
+                 * 
                  * @returns
                  */
-                destroy: function(){
-                	this.stopListening();
-                	this.remove();
+                destroy : function() {
+                    this.stopListening();
+                    this.remove();
                 }
 
             });

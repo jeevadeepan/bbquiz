@@ -26,7 +26,8 @@ define(
                             this.showQuestionDetails();
                             this.showQuestion();
                             this.showOption();
-                            this.model.listenTo("error", function(model, error) {
+                            this.listenTo(this.model, "error", function(model,
+                                    error) {
                                 alert(error);
                             });
                         },
@@ -131,14 +132,16 @@ define(
                                 }
                             }
                         },
-                        
+
                         /**
-                         * method to unbind all event handlers and remove the view from the DOM
+                         * method to unbind all event handlers and remove the
+                         * view from the DOM
+                         * 
                          * @returns
                          */
-                        destroy: function(){
-                        	this.stopListening();
-                        	this.remove();
+                        destroy : function() {
+                            this.stopListening();
+                            this.remove();
                         }
 
                     });
