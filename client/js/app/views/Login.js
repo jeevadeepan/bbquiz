@@ -65,10 +65,10 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                     }, {
                         success : function(model, response) {
                             // show the quiz
-                            Backbone.history.navigate('/#quiz', {
+                            Backbone.history.navigate('/quiz', {
                                 trigger : true
                             });
-                            that.destroy();
+                            // that.destroy();
                             return;
                         },
                         error : function(model, error) {
@@ -84,7 +84,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                  */
                 showHelp : function() {
                     // show the help
-                    Backbone.history.navigate('/#help', {
+                    Backbone.history.navigate('/help', {
                         trigger : true
                     });
                 },

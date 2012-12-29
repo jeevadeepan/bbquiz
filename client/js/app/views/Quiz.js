@@ -47,22 +47,25 @@ define( [ 'jquery', 'underscore', 'backbone',
             });
             this.$el.append(timerView.el);
 
-            this.model.listenTo("error", function(model, error) {
+            this.listenTo(that.model, "error", function(model, error) {
                 alert(error);
                 that.remove();
                 console.log(that.collection.at(0).changedAttributes);
-                //that.model.save(that.collection.getAnsweredQuestions());
-                Backbone.history.navigate("/result",{trigger:true});
+                // that.model.save(that.collection.getAnsweredQuestions());
+                Backbone.history.navigate("/result", {
+                    trigger : true
+                });
             });
 
             /**
              * Bind the model current Index with the question
              */
-            this.model.listenTo("change:currentIndex", function(model, currentIndex) {
+            this.listenTo(that.model, "change:currentIndex", function(model,
+                    currentIndex) {
                 var questionModel = that.collection.at(currentIndex);
-                questionModel.set("questionNumber",currentIndex+1);
-                questionModel.set("totalQuestions",that.collection.length);
-                var questionView = new QuestionView({
+                questionModel.set("questionNumber", currentIndex + 1);
+                questionModel.set("totalQuestions", that.collection.length);
+                var questionView = new QuestionView( {
                     model : questionModel
                 });
                 $(questionView.el).insertAfter(that.$el.find('#timerWrapper'));
@@ -70,17 +73,17 @@ define( [ 'jquery', 'underscore', 'backbone',
 
             var actionsView = new ActionsView();
 
-            actionsView.listenTo("showNext", function() {
+            this.listenTo(actionsView, "showNext", function() {
                 that.$el.find("#questionWrapper").remove();
                 that.model.set("currentIndex",
                         that.model.get("currentIndex") + 1);
             });
 
-            actionsView.listenTo("validateAndShowNext", function() {
+            this.listenTo(actionsView, "validateAndShowNext", function() {
                 var currentQuestion = that.collection.at(that.model
                         .get("currentIndex"));
                 if (currentQuestion.isAnswered()) {
-                	this.trigger("showNext");
+                    this.trigger("showNext");
                 } else {
                     alert("Please Answer the question to proceed");
                 }
@@ -93,14 +96,15 @@ define( [ 'jquery', 'underscore', 'backbone',
              */
             this.model.set("currentIndex", 0);
         },
-        
+
         /**
          * method to unbind all event handlers and remove the view from the DOM
+         * 
          * @returns
          */
-        destroy: function(){
-        	this.stopListening();
-        	this.remove();
+        destroy : function() {
+            this.stopListening();
+            this.remove();
         }
 
     });

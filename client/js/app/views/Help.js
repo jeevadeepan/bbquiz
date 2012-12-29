@@ -40,16 +40,20 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/help.js' ],
                  */
                 startQuiz : function() {
                     this.remove();
-                    Backbone.history.navigate('/#quiz', {trigger: true});
+                    Backbone.history.navigate('/quiz', {
+                        trigger : true
+                    });
                 },
-                
+
                 /**
-                 * method to unbind all event handlers and remove the view from the DOM
+                 * method to unbind all event handlers and remove the view from
+                 * the DOM
+                 * 
                  * @returns
                  */
-                destroy: function(){
-                	this.stopListening();
-                	this.remove();
+                destroy : function() {
+                    this.stopListening();
+                    this.remove();
                 }
 
             });

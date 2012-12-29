@@ -38,16 +38,21 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/result.js' ],
                  */
                 restartQuiz : function() {
                     this.destroy();
+                    Backbone.history.navigate('/result', {
+                        trigger : true
+                    });
                     this.trigger("showLogin");
                 },
-                
+
                 /**
-                 * method to unbind all event handlers and remove the view from the DOM
+                 * method to unbind all event handlers and remove the view from
+                 * the DOM
+                 * 
                  * @returns
                  */
-                destroy: function(){
-                	this.stopListening();
-                	this.remove();
+                destroy : function() {
+                    this.stopListening();
+                    this.remove();
                 }
 
             });

@@ -6,7 +6,6 @@ function includeCommonConfig() {
             jqueryui : 'lib/jqueryui',
             underscore : 'lib/underscore-1.3.3',
             backbone : 'lib/backbone-min',
-            backbone_routefilter : 'lib/backbone.routefilter.min',
             handlebarslib : 'lib/handlebars-1.0.rc.1',
             handlebars : 'common/handlebars-bootstrap'
         },
@@ -21,7 +20,7 @@ function includeCommonConfig() {
             handlebarslib : {
                 exports : 'Handlebars'
             },
-            backbone_routerfilter : [ 'backbone' ]
+            'lib/backbone.routefilter.min' : [ 'backbone' ]
         }
     });
 
