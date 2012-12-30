@@ -6,16 +6,29 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/Question.js' ],
             var Questions = Backbone.Collection.extend( {
 
                 model : Question,
+                
+                /**
+                 * shuffle the collection using undescore shuffle method, which has
+                 * a best algorithm for shuffling and return shuffle collection
+                 * @returns
+                 */
+                getshuffleQuestions : function(){
+            		return _.shuffle(this)
+            	},
 
                 /**
                  * function to get list of answered questions
                  * 
                  * @returns
                  */
-                getAnsweredQuestions : function() {
-                    return _.filter(this.toJSON(), function(value) {
-                        return value.selectedAnswer !== null;
-                    });
+                getAnswers : function() {
+                    var answeredQuestions = _.filter(this.toJSON(), function(value) {
+                        						return value.selectedAnswer;
+                    						}),
+                    	questions = _.pluck(answeredQuestions,'question'),
+                    	answers = _.pluck(answeredQuestions,'selectedAnswer'),
+                    	answersMap = _.object(questions,answers);
+                   return  $.makeArray(answersMap);
                 }
             });
             return Questions;

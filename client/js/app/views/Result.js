@@ -29,6 +29,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/result.js' ],
                  */
                 render : function() {
                     this.$el.html(ResultTemplate.result);
+                    this.$el.find('#score').html(this.model.get("score"));
                 },
 
                 /**
@@ -38,7 +39,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/result.js' ],
                  */
                 restartQuiz : function() {
                     this.destroy();
-                    Backbone.history.navigate('/result', {
+                    Backbone.history.navigate('/login', {
                         trigger : true
                     });
                     this.trigger("showLogin");

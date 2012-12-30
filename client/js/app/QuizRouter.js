@@ -14,6 +14,7 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
             Backbone.history.start();
         },
 
+        //variable to destroy the existing views, before creating a new view in the next route
         currentView : null,
 
         // All the backbone routes
@@ -49,24 +50,13 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
          * @returns
          */
         startQuiz : function() {
-            var that = this;
             var quizModel = new QuizModel();
-            // make an ajax call and get the data
-            quizModel
-                    .fetch( {
-                        update : true,
-                        success : function(model, response) {
-                            var questions = model.get("questions");
-                            var questionsCollection = new QuestionsCollection(
-                                    questions);
-                            questionsCollection.update(questions);
-                            that.currentView = new QuizView( {
-                                model : model,
-                                collection : questionsCollection
-                            });
-                            $('#main-content').append(that.currentView.el);
-                        }
-                    });
+            this.currentView = new QuizView({
+            	model : quizModel
+            });
+            $('#main-content').append(this.currentView.el);
+            //make an ajax call and show the data
+            quizModel.fetch();
         },
 
         /**
@@ -93,8 +83,10 @@ define( [ 'jquery', 'backbone', '/js/app/models/Login.js',
         },
 
         /**
-         * destroy current view
-         * 
+         * function that gets called before each router 
+         * from the function provided by route filter plugin
+         * mostly previous views existing the page will be destroyed
+         * to prevent Zombie view 
          * @returns
          */
         destroyCurrentView : function() {

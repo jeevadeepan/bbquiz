@@ -1,32 +1,87 @@
+/**
+ * Creators : Pradeep S,Janani J
+ * 
+ * <ul>
+ * <li>Hey, I am a composite view, who can manage other views. So i am little intelligent 
+ * </li>
+ * <li>1)creates a timer, based on the time set</li>
+ * <li>2)shuffles the questions, if randomised is true</li>
+ * <li>3)Show the first question</li>
+ * <li>4)Create the Quit,Pass,Next buttons</li>
+ * <li>5)Please destroy me, before creating the next view, otherwise i will become a Zombie
+ *       and eat your alive views :)
+ * </ul>
+ */
 define( [ 'jquery', 'underscore', 'backbone',
         '/js/app/collections/Questions.js', '/js/app/models/Question.js',
         '/js/app/models/Quiz.js', '/js/app/models/Timer.js',
         '/js/app/models/Result.js', '/js/app/views/Login.js',
         '/js/app/views/Question.js', '/js/app/views/Timer.js',
-        '/js/app/views/Actions.js', '/js/app/views/Result.js',
-        '/js/app/collections/Questions.js' ], function($, _, Backbone,
+        '/js/app/views/Result.js',
+        '/js/app/collections/Questions.js', '/js/app/Models/Answer.js', '/js/app/templates/quiz.js' ], function($, _, Backbone,
         Questions, QuestionModel, QuizModel, TimerModel, ResultModel,
-        LoginView, QuestionView, TimerView, ActionsView, ResultView,
-        QuestionsCollection) {
+        LoginView, QuestionView, TimerView, ResultView,
+        QuestionsCollection, Answer ,QuizTemplate) {
 
     var Quiz = Backbone.View.extend( {
         tagName : 'div',
         // Define the element corresponding to the view here
-        id : '#quiz-content',
+        id : 'quiz-content',
 
+        /**
+         * variable to store the current question and to prevent Zombie views
+         */
+        currentQuestion : null,
+        
+        events : {
+    		'click .quitButton' : 'showResult',
+    		'click .nextButton' : 'validateAndShowNextQuestion',
+    		'click .passButton' : 'showNextQuestion'
+    	},
+        
         /*
          * this function will be called while creating the new instance of the
          * view. All the thirdparty code corresponding to the view. should be
          * initialized here
          */
         initialize : function() {
+    		var that = this;
+    		
+    		/**
+    		 * view listens to the model,when time is set in the model it creats the timer
+    		 */
+    		this.listenTo(that.model,"change:time", function(model,time){
+    			that.createTimer(time);
+    		});
+    		
+    	
             /**
-             * if the question are randomized then check the shuffle the
-             * collection provided by underscore method
+             * Bind the model current Index with the question
              */
-            if (this.model.get("randomized")) {
-                // _.shuffle(this.collection);
-            }
+            this.listenTo(that.model, "change:currentIndex", function(model,
+                    currentIndex) {
+            	var questions = model.get("questions");
+            	var question = questions.at(currentIndex);
+                question.set("questionNumber", currentIndex + 1);
+                question.set("totalQuestions", questions.length);
+                //destroy the existin question view and prevent zombies
+                if(this.currentQuestion){
+                	this.currentQuestion.destroy();
+                }
+                this.currentQuestion = new QuestionView( {
+                    model : question
+                });
+            });
+    		
+            /**
+             * validation error if all the questions are answered
+             */
+            this.listenTo(that.model, "error", function(model, error) {
+                alert(error);
+                that.remove();
+                that.showResult();
+            });
+      
             this.render();
         },
 
@@ -35,66 +90,22 @@ define( [ 'jquery', 'underscore', 'backbone',
          * talk to the template
          */
         render : function() {
-            var that = this;
-            /**
-             * initialize the timer
-             */
-            var timerModel = new TimerModel( {
-                "totalTime" : this.model.get("time")
-            });
+        	this.$el.html(QuizTemplate.quiz);
+        },
+        
+       /**
+        * create timer with the given time
+        * @param time
+        * @returns
+        */
+        createTimer : function(time){
+        	var timerModel = new TimerModel({
+        		"totalTime" : time,
+        		"time" : time
+        	});
             var timerView = new TimerView( {
                 model : timerModel
             });
-            this.$el.append(timerView.el);
-
-            this.listenTo(that.model, "error", function(model, error) {
-                alert(error);
-                that.remove();
-                console.log(that.collection.at(0).changedAttributes);
-                // that.model.save(that.collection.getAnsweredQuestions());
-                Backbone.history.navigate("/result", {
-                    trigger : true
-                });
-            });
-
-            /**
-             * Bind the model current Index with the question
-             */
-            this.listenTo(that.model, "change:currentIndex", function(model,
-                    currentIndex) {
-                var questionModel = that.collection.at(currentIndex);
-                questionModel.set("questionNumber", currentIndex + 1);
-                questionModel.set("totalQuestions", that.collection.length);
-                var questionView = new QuestionView( {
-                    model : questionModel
-                });
-                $(questionView.el).insertAfter(that.$el.find('#timerWrapper'));
-            });
-
-            var actionsView = new ActionsView();
-
-            this.listenTo(actionsView, "showNext", function() {
-                that.$el.find("#questionWrapper").remove();
-                that.model.set("currentIndex",
-                        that.model.get("currentIndex") + 1);
-            });
-
-            this.listenTo(actionsView, "validateAndShowNext", function() {
-                var currentQuestion = that.collection.at(that.model
-                        .get("currentIndex"));
-                if (currentQuestion.isAnswered()) {
-                    this.trigger("showNext");
-                } else {
-                    alert("Please Answer the question to proceed");
-                }
-
-            });
-            this.$el.append(actionsView.el);
-
-            /**
-             * show the question at current Index
-             */
-            this.model.set("currentIndex", 0);
         },
 
         /**
@@ -105,6 +116,45 @@ define( [ 'jquery', 'underscore', 'backbone',
         destroy : function() {
             this.stopListening();
             this.remove();
+        },
+        
+        /**
+         * evaluate the answers and  show result
+         * @returns
+         */
+        showResult : function(){
+        	var that = this;
+        	var answers = new Answer({
+        		answeredQuestions : this.model.get("questions").getAnswers()
+        	});
+        	answers.save({},{success : function(model,response){
+        		console.log(response.score);
+        		Backbone.history.navigate('/result', {
+                    trigger : true
+                });
+        		return;
+        	}});
+        },
+        
+        /**
+         * validate if the current question is answered and show next question
+         * @returns
+         */
+        validateAndShowNextQuestion : function(){
+        	if(!this.currentQuestion.model.isAnswered()){
+        		this.showNextQuestion();
+        	}else{
+        		alert("Please answer the question to proceed");
+        	}
+        },
+        
+        /**
+         * just show next question
+         * @returns
+         */
+        showNextQuestion : function(){
+        	var currentIndex = this.model.get("currentIndex")+1;
+        	this.model.set("currentIndex",currentIndex);
         }
 
     });

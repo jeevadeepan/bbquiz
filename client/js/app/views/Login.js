@@ -10,6 +10,8 @@
  * <li>2)Listens to the validation error triggered by the model</li>
  * <li>3)Notifies the start game button click handler to the Router</li>
  * <li>4)Notifies the help button click handler to the Router</li>
+ * <li>5)Please destroy me, before creating the next view, otherwise i will become Zombie
+ *       and eat your alive views :)
  * </ul>
  */
 
@@ -23,8 +25,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                 id : 'loginWrapper',
 
                 // Define all the events here,In backbone all the events
-                // use
-                // event delegation
+                // use event delegation
                 events : {
                     'click #startGame' : 'startQuiz',
                     'click #help' : 'showHelp',
@@ -68,7 +69,6 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                             Backbone.history.navigate('/quiz', {
                                 trigger : true
                             });
-                            // that.destroy();
                             return;
                         },
                         error : function(model, error) {

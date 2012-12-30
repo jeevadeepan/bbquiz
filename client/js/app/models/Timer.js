@@ -3,33 +3,33 @@ define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
         // Set all the default properties here
         defaults : {
             time : 0,
-            formattedTime : "",
             degree : 0,
-            totalTime : 0,
-            formattedTotalTime : ""
+            totalTime : 0
         },
-
-        initialize : function() {
-            this.set("time", this.get("totalTime"));
-            this.set("formattedTime", this.getFormattedTime());
-            this.set("formattedTotalTime", this.getFormattedTotalTime());
-            this.covertToDegree();
-        },
+        
 
         /**
          * formats the given time and returns the time that can be displayed
          * 
          * @returns
          */
-        getFormattedTime : function() {
-            return _getFormattedTime(this.get("time"));
-        },
+        getFormattedTime : function(time) {
+        	 var limit = 60, minutes = 0, seconds = 0, remainingTime = time;
+             if (remainingTime > limit) {
+                 minutes = Math.floor(remainingTime / limit).toFixed();
+                 seconds = (remainingTime % limit).toFixed();
+             } else {
+                 seconds = (remainingTime * 1).toFixed();
+             }
 
-        /**
-         * formats the total time that can be displayed
-         */
-        getFormattedTotalTime : function() {
-            return _getFormattedTime(this.get("totalTime"));
+             if (seconds < 10) {
+                 seconds = "0" + seconds;
+             }
+
+             if (minutes < 10) {
+                 minutes = "0" + minutes;
+             }
+             return minutes + ':' + seconds;
         },
 
         /**
@@ -62,33 +62,9 @@ define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
         decrementTime : function() {
             var time = this.get("time") - 1;
             this.set("time", time);
-            this.set("formattedTime", this.getFormattedTime());
+            this.set("formattedTime", this.getFormattedTime(time));
             this.covertToDegree();
         }
     });
-
-    /**
-     * function to format the given time, this is a private function and so it
-     * is name starts with underscore
-     */
-    function _getFormattedTime(time) {
-        var limit = 60, minutes = 0, seconds = 0, remainingTime = time;
-        if (remainingTime > limit) {
-            minutes = Math.floor(remainingTime / limit).toFixed();
-            seconds = (remainingTime % limit).toFixed();
-        } else {
-            seconds = (remainingTime * 1).toFixed();
-        }
-
-        if (seconds < 10) {
-            seconds = "0" + seconds;
-        }
-
-        if (minutes < 10) {
-            minutes = "0" + minutes;
-        }
-        return minutes + ':' + seconds;
-    }
-
     return Timer;
 });

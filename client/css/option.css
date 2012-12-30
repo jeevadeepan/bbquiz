@@ -1,0 +1,34 @@
+.radio-option{
+	background: rgba(255, 255, 255, 0.15);
+}
+.selected{
+	background: rgba(255, 255, 255, 0.35);
+	background-image:url('/img/blue_tick.png');
+    background-repeat: no-repeat;
+    background-position: 10px 5px;
+}
+
+#answersWrapper{
+	width:100%;
+}
+
+#answersWrapper label{
+	align:center;
+	display:block;
+	margin:10px;
+	height:50px;
+	text-align:center;
+	color:#fff;
+}
+
+#answersWrapper label input[type="radio"]{
+	float:left;
+	visibility:hidden;
+	width:0px;
+}
+
+#answersWrapper label p{
+	height:40px;
+	padding-top:14px;
+	text-align:center;
+}

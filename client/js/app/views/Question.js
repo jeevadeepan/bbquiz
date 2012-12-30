@@ -4,10 +4,8 @@ define(
 
             var Question = Backbone.View
                     .extend( {
-                        /* spectify the tag to be created for this view */
-                        tagName : 'div',
-
-                        id : 'questionWrapper',
+                       
+                        el : '#questionWrapper',
 
                         // Define all the events here,In backbone all the events
                         // use event delegation
@@ -98,11 +96,11 @@ define(
                                         .each(
                                                 answers,
                                                 function(index, answer) {
-                                                    answersHtml += '<label><input type="radio" value="'
+                                                    answersHtml += '<label class="radio-option"><input type="radio" value="'
                                                             + answer
-                                                            + '" name="answer">'
+                                                            + '" name="answer"><p>'
                                                             + answer
-                                                            + '</input><label>';
+                                                            + '</p></label>';
                                                 });
                                 break;
                             case "fillin":
@@ -122,6 +120,10 @@ define(
                             if (e.target.nodeName === "INPUT") {
                                 switch ($input.attr("type")) {
                                 case "radio":
+                                	$('#answersWrapper .selected').removeClass('selected');
+                                	var selectedClass = $input.is(":checked") ? "selected" : "";
+                                	console.log(selectedClass);
+                                	$input.closest('label').addClass(selectedClass);
                                     this.model.set("selectedAnswer", $input
                                             .val());
                                     break;
@@ -141,7 +143,7 @@ define(
                          */
                         destroy : function() {
                             this.stopListening();
-                            this.remove();
+                            this.$el.html("");
                         }
 
                     });

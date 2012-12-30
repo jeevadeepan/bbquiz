@@ -3,6 +3,7 @@
  */
 define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
     var Question = Backbone.Model.extend( {
+    	
         // Set all the default properties here
         defaults : {
             question : "",
@@ -14,14 +15,8 @@ define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
             type : ""
         },
 
-        validate : function(attrs) {
-            if (attrs.selectedAnswer === null) {
-                return "Please Answer the question to proceed";
-            }
-        },
-
         isAnswered : function() {
-            return (this.get("selectedAnswer") !== null);
+            return (!this.get("selectedAnswer"));
         }
     });
     return Question;

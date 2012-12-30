@@ -1,13 +1,10 @@
-define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js', ],
+define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
         function($, _, Backbone, QuizTemplate) {
 
             var Timer = Backbone.View.extend( {
 
-                // Define the div that should be created
-                tagName : 'div',
-
-                id : 'timerWrapper',
-
+            	el : '#timerWrapper',
+            	
                 timerId : null,
 
                 // Define all the events here,In backbone all the events use
@@ -22,7 +19,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js', ],
                 initialize : function() {
                     var that = this;
                     that.render();
-
+                    
                     // Update the total time
                     that.listenTo(this.model, 'change:time', function(model,
                             time) {
@@ -41,12 +38,9 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js', ],
                     that.listenTo(this.model, 'error', function(model, error) {
                         clearInterval(that.timerId);
                         alert(error);
-                        Backbone.history.navigate('/#result', {
+                        Backbone.history.navigate('/result', {
                             trigger : true
                         })
-                        that.trigger('showResult');
-                        that.destroy();
-                        // reset
                     });
                     that.initTimer();
                 },
@@ -59,7 +53,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js', ],
                     this.$el.html(QuizTemplate.timer);
                     var timer = $(QuizTemplate.timer());
                     var counter = $(QuizTemplate.counter( {
-                        'remainingTime' : this.model.get("formattedTotalTime")
+                        'remainingTime' : this.model.getFormattedTime(this.model.get("totalTime"))
                     }));
                     counter.appendTo(this.$el);
                 },

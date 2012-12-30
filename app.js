@@ -20,6 +20,13 @@ app.post("/login", function(req, res) {
     });
 });
 
+app.post("/answers", function(req,res){
+	console.log(req.params);
+	res.json({
+		score : "0/10"
+	});
+});
+
 app.configure(function() {
     app.use(express.methodOverride());
     app.use(express.bodyParser());
