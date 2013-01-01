@@ -66,9 +66,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                     }, {
                         success : function(model, response) {
                             // show the quiz
-                            Backbone.history.navigate('/quiz', {
-                                trigger : true
-                            });
+                            QuizApp.vent.trigger("showQuiz",response);
                             return;
                         },
                         error : function(model, error) {

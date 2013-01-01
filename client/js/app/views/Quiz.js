@@ -128,10 +128,9 @@ define( [ 'jquery', 'underscore', 'backbone',
         		answeredQuestions : this.model.get("questions").getAnswers()
         	});
         	answers.save({},{success : function(model,response){
-        		console.log(response.score);
-        		Backbone.history.navigate('/result', {
-                    trigger : true
-                });
+        		QuizApp.vent.trigger('showResult',function(response){
+        			
+        		});
         		return;
         	}});
         },

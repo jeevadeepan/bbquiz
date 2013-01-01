@@ -38,11 +38,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/result.js' ],
                  * @returns
                  */
                 restartQuiz : function() {
-                    this.destroy();
-                    Backbone.history.navigate('/login', {
-                        trigger : true
-                    });
-                    this.trigger("showLogin");
+                	QuizApp.vent.trigger("showLogin");
                 },
 
                 /**

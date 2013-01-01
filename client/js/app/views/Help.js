@@ -39,8 +39,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/help.js' ],
                  * @returns
                  */
                 startQuiz : function() {
-                    this.remove();
-                    Backbone.history.navigate('/quiz', {
+                	Backbone.history.navigate('/quiz', {
                         trigger : true
                     });
                 },
