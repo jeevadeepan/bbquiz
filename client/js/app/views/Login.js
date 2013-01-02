@@ -15,9 +15,8 @@
  * </ul>
  */
 
-define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
-        function($, _, Backbone, loginTemplate) {
-
+define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js','i18n!locales/QuizText' ],
+        function($, _, Backbone, loginTemplate, QuizText) {
             var Login = Backbone.View.extend( {
 
                 tagName : 'div',
@@ -29,7 +28,8 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                 events : {
                     'click #startGame' : 'startQuiz',
                     'click #help' : 'showHelp',
-                    'keyup #inputWrapper > input' : 'updateUserName'
+                    'keyup #inputWrapper > input' : 'updateUserName',
+                    'change :input' : 'updateLanguage'
                 },
 
                 /*
@@ -49,8 +49,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                  * should talk to the template
                  */
                 render : function() {
-                    this.$el.html(loginTemplate.loginHeader
-                            + loginTemplate.login + loginTemplate.loginButton);
+                    this.$el.html(loginTemplate.login);
                     this.$el.find('input:first').focus();
                 },
 
@@ -94,6 +93,11 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js' ],
                  */
                 updateUserName : function(e) {
                     this.model.set('userName', $(e.target).val());
+                },
+                
+                updateLanguage : function(e){
+                	Language = $(e.target).val();
+                	//add logic to update the language and reload the app
                 },
 
                 /**

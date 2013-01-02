@@ -1,13 +1,4 @@
 /**
- * Bigmachines RequireJS I18n Plugin
- * 
- * Simply takes a root language file and loads the translated version based on the
- * locale set in configuration. The translated file is generated dynamically, so
- * we can guarantee it will be there as long as locale is configured to be the logged 
- * in user's locale. Therefore, no fallback functionality is necessary.
- * 
- * Does not inline anything into the build, files are always loaded asyncronously, 
- * even in production.
  * 
  * Usage:
  *      define(['i18n!locales/someText'],function(someText){alert(someText.alert)});

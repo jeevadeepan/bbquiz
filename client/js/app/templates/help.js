@@ -1,9 +1,8 @@
 define(
-        [ 'handlebars' ],
-        function(HandleBars) {
+        [ 'handlebars' , 'text!/js/app/templates/help.hbs',
+          'i18n!locales/QuizText'],
+        function(HandleBars,help) {
             return {
-                helpHeader : '<div id="helpHeader"><div></div></div>',
-                help : '<div id="helpText"></div>',
-                startGameButton : '<div id="helpActions"><button id="startGame">Start Game</button>'
+                help : HandleBars.compile(help)
             };
         });

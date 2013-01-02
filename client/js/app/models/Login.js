@@ -8,7 +8,7 @@
  * <li>validate username</li>
  * </ul>
  */
-define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
+define( [ 'jquery', 'underscore', 'backbone',  'i18n!locales/QuizText' ], function($, _, Backbone, QuizText) {
     var Login = Backbone.Model.extend( {
         // Set all the default properties here
         defaults : {
@@ -27,7 +27,7 @@ define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
          */
         validate : function(attrs) {
             if (attrs.userName.length <= 0) {
-                return "Please enter User Name";
+                return QuizText.pleaseEnterUserName;
             }
         }
 

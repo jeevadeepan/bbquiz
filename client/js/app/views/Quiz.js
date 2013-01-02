@@ -99,12 +99,14 @@ define( [ 'jquery', 'underscore', 'backbone',
         * @returns
         */
         createTimer : function(time){
+        	var that = this;
         	var timerModel = new TimerModel({
         		"totalTime" : time,
         		"time" : time
         	});
             var timerView = new TimerView( {
-                model : timerModel
+                model : timerModel,
+                quizModel : that.model
             });
         },
 

@@ -1,4 +1,4 @@
-define( [ 'jquery', 'underscore', 'backbone', '/js/app/collections/Questions.js' ], function($, _, Backbone, Questions) {
+define( [ 'jquery', 'underscore', 'backbone', '/js/app/collections/Questions.js', 'i18n!locales/QuizText' ], function($, _, Backbone, Questions, QuizText) {
     var Quiz = Backbone.Model.extend( {
         
     	// Set all the default properties here
@@ -21,7 +21,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/collections/Questions.js'
          */
         validate : function(attrs) {
             if (attrs.currentIndex > _.size(attrs.questions) - 1) {
-                return "All Questions completed";
+                return QuizText.allQuestionsCompleted;
             }
         },
         

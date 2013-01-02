@@ -1,6 +1,8 @@
 var express = require("express"), app = express(), port = parseInt(
         process.env.PORT, 10) || 4567;
 
+var language = "en";
+
 app.get("/", function(req, res) {
     console.log("inside app redirection");
     res.redirect("/index.html");
@@ -12,6 +14,11 @@ app.get("/test", function(req, res) {
 });
 
 app.use(express.bodyParser());
+
+app.use("/getLanguage",function(req,res){
+	console.log("en");
+});
+
 app.post("/login", function(req, res) {
     console.log("inside quiz");
     console.log(req.params);

@@ -24,5 +24,10 @@ function includeCommonConfig() {
             'lib/backbone.marionette.min' : [ 'backbone' ]
         }
     });
-
+    
+    require.config({
+        i18n: {
+            locale: Language
+        }
+    });
 }

@@ -1,11 +1,20 @@
 <div id="loginHeader">
 	<div></div>
 </div>
-<div id="loginName">Enter your Name</div>
+<div id="localeWrapper">
+{{msg "QuizText.selectYourLanguage"}}: 
+<select>
+	<option selected value="en">{{msg "QuizText.english"}}</option>
+	<option value="ch">{{msg "QuizText.chinese"}}</option>
+	<option value="ge">{{msg "QuizText.german"}}</option>
+	<option value="sp">{{msg "QuizText.spanish"}}</option>
+</select>
+</div>
+<div id="loginName">{{msg "QuizText.enterYourName"}}</div>
 <div id="inputWrapper">
 	<input type="text" />
 </div>
 <div id="actions">
-	<button id="startGame">Start Game</button>
-	<button id="help">Help</button>
+	<button id="startGame">{{msg "QuizText.startGame"}}</button>
+	<button id="help">{{msg "QuizText.help"}}</button>
 </div>
