@@ -29,7 +29,7 @@
     },
 
     // Adds a namespace to the build to avoid conflicts with PS using requirejs
-    namespace : 'bmdev',
+    namespace : 'bbquiz',
 
     // Add modules here
     modules : [ {
@@ -37,16 +37,6 @@
         name : "require",
         include : [ 'requireLib' ]
     }, {
-        name : "admin/freemarker/main"
-    }, {
-        name : "admin/pricing/profileMain"
-    }, {
-        name : "admin/pricing/contractMain"
-    }, {
-        name : "admin/template-engine/emailTemplatesMain"
-    }, {
-        name : "admin/template-engine/templateEditorMain"
-    }, {
-        name : "admin/formula-management/formulaMain"
-    } ]
+        name : "js/app/main"
+    }]
 })
