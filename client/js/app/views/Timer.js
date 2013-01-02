@@ -38,9 +38,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
                     that.listenTo(this.model, 'error', function(model, error) {
                         clearInterval(that.timerId);
                         alert(error);
-                        Backbone.history.navigate('/result', {
-                            trigger : true
-                        })
+                        QuizApp.vent.trigger('showResult');
                     });
                     that.initTimer();
                 },
