@@ -29,8 +29,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/help.js' ],
                  */
                 render : function() {
                     var that = this;
-                    that.$el.html(HelpTemplate.helpHeader + HelpTemplate.help
-                            + HelpTemplate.startGameButton);
+                    that.$el.html(HelpTemplate.help);
                 },
 
                 /**

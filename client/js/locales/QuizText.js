@@ -16,5 +16,6 @@ define({
 	yourScore : "Your Score",
 	restartGame : "Restart Game",
 	allQuestionsCompleted : "All Questions completed",
-	pleaseEnterUserName : "Please enter User Name"
+	pleaseEnterUserName : "Please enter User Name",
+	quiz : "Quiz"
 });
