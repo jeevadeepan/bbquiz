@@ -15,11 +15,11 @@
 define( [ 'jquery', 'underscore', 'backbone',
         '/js/app/collections/Questions.js', '/js/app/models/Question.js',
         '/js/app/models/Quiz.js', '/js/app/models/Timer.js',
-        '/js/app/models/Result.js', '/js/app/views/Login.js',
+        '/js/app/views/Login.js',
         '/js/app/views/Question.js', '/js/app/views/Timer.js',
         '/js/app/views/Result.js',
         '/js/app/collections/Questions.js', '/js/app/Models/Answer.js', '/js/app/templates/quiz.js' ], function($, _, Backbone,
-        Questions, QuestionModel, QuizModel, TimerModel, ResultModel,
+        Questions, QuestionModel, QuizModel, TimerModel, 
         LoginView, QuestionView, TimerView, ResultView,
         QuestionsCollection, Answer ,QuizTemplate) {
 
@@ -29,9 +29,11 @@ define( [ 'jquery', 'underscore', 'backbone',
         id : 'quiz-content',
 
         /**
-         * variable to store the current question and to prevent Zombie views
+         * variables to store the current question and timer and to prevent Zombie views
          */
         currentQuestion : null,
+        
+        timer : null,
         
         events : {
     		'click .quitButton' : 'showResult',
@@ -65,10 +67,10 @@ define( [ 'jquery', 'underscore', 'backbone',
                 question.set("questionNumber", currentIndex + 1);
                 question.set("totalQuestions", questions.length);
                 //destroy the existin question view and prevent zombies
-                if(this.currentQuestion){
-                	this.currentQuestion.destroy();
+                if(that.currentQuestion){
+                	that.currentQuestion.destroy();
                 }
-                this.currentQuestion = new QuestionView( {
+                that.currentQuestion = new QuestionView( {
                     model : question
                 });
             });
@@ -104,7 +106,7 @@ define( [ 'jquery', 'underscore', 'backbone',
         		"totalTime" : time,
         		"time" : time
         	});
-            var timerView = new TimerView( {
+            this.timer = new TimerView( {
                 model : timerModel,
                 quizModel : that.model
             });
@@ -126,15 +128,13 @@ define( [ 'jquery', 'underscore', 'backbone',
          */
         showResult : function(){
         	var that = this;
-        	var answers = new Answer({
+        	var answers = {
+        		userName : that.model.get("userName"),
         		answeredQuestions : this.model.get("questions").getAnswers()
-        	});
-        	answers.save({},{success : function(model,response){
-        		QuizApp.vent.trigger('showResult',function(response){
-        			
-        		});
-        		return;
-        	}});
+        	};
+        	that.timer.destroy();
+        	that.destroy();
+        	QuizApp.vent.trigger('showResult',answers);
         },
         
         /**

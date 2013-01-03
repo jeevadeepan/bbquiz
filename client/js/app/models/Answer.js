@@ -12,7 +12,9 @@ define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
     var Answer = Backbone.Model.extend( {
         // Set all the default properties here
         defaults : {
-            answeredQuestions : []
+    		userName:'',
+            answeredQuestions : [],
+            score:''
         },
         /**
          * url for storing the user in server side

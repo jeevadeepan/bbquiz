@@ -1,8 +1,11 @@
 var express = require("express"), app = express(), port = parseInt(
         process.env.PORT, 10) || 4567;
 
+
+
 var language = "en";
 
+app.use(express.bodyParser());
 app.get("/", function(req, res) {
     console.log("inside app redirection");
     res.redirect("/index.html");
@@ -14,30 +17,32 @@ app.get("/test", function(req, res) {
 });
 
 app.use(express.bodyParser());
-
-app.use("/getLanguage",function(req,res){
+app.get("/getLanguage",function(req,res){
 	console.log("en");
 });
 
+app.use(express.bodyParser());
 app.post("/login", function(req, res) {
     console.log("inside quiz");
-    console.log(req.params);
+    console.log(req.body);
     res.json( {
-        user : "Pradeep"
+        userName : req.body.userName
     });
 });
 
+app.use(express.bodyParser());
 app.post("/answers", function(req,res){
-	console.log(req.params);
+	console.log(req.body);
 	res.json({
-		score : "0/10"
+		userName: req.body.userName,
+		score : req.body.answeredQuestions.length
 	});
 });
 
 app.configure(function() {
-    app.use(express.methodOverride());
+    //app.use(express.methodOverride());
     app.use(express.bodyParser());
-    // app.use(express.urlencoded);
+    //app.use(express.urlencoded);
     app.use(express.static(__dirname + '/client'));
     app.use(express.static(__dirname + '/test'));
     app.use(express.errorHandler( {
@@ -48,3 +53,4 @@ app.configure(function() {
 });
 
 app.listen(port);
+

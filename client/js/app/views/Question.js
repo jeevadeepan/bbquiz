@@ -122,7 +122,6 @@ define(
                                 case "radio":
                                 	$('#answersWrapper .selected').removeClass('selected');
                                 	var selectedClass = $input.is(":checked") ? "selected" : "";
-                                	console.log(selectedClass);
                                 	$input.closest('label').addClass(selectedClass);
                                     this.model.set("selectedAnswer", $input
                                             .val());

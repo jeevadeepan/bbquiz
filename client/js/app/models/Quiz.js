@@ -3,6 +3,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/collections/Questions.js'
         
     	// Set all the default properties here
         defaults : {
+    		userName : "",
             time : null,
             randomized : false,
             questions : new Questions(),

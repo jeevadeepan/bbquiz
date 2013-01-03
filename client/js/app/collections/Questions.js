@@ -13,7 +13,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/Question.js' ],
                  * @returns
                  */
                 getshuffleQuestions : function(){
-            		return _.shuffle(this)
+            		return _.shuffle(this);
             	},
 
                 /**
@@ -27,8 +27,12 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/Question.js' ],
                     						}),
                     	questions = _.pluck(answeredQuestions,'question'),
                     	answers = _.pluck(answeredQuestions,'selectedAnswer'),
-                    	answersMap = _.object(questions,answers);
-                   return  $.makeArray(answersMap);
+                    	answersArray = [];
+                    	$.each(questions,function(index,elem){
+                    		var obj = {elem : answers[index]};
+                    		answersArray.push(obj);
+                    	});
+                   return answersArray;
                 }
             });
             return Questions;

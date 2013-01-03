@@ -60,18 +60,11 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js','i18n
                  */
                 startQuiz : function() {
                     var that = this;
-                    this.model.save( {
-                        'userName' : $('#inputWrapper > input').val()
-                    }, {
-                        success : function(model, response) {
-                            // show the quiz
-                            QuizApp.vent.trigger("showQuiz",response);
-                            return;
-                        },
-                        error : function(model, error) {
-                            alert(error);
-                        }
-                    });
+                    this.model.save({'userName' : $('#inputWrapper > input').val()},{
+                    		error : function(){
+                    			alert("Please enter a valid userName");
+                    			return;
+                    		}});
                 },
 
                 /**
