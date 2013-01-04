@@ -156,6 +156,18 @@ define( [ 'jquery', 'underscore', 'backbone',
         showNextQuestion : function(){
         	var currentIndex = this.model.get("currentIndex")+1;
         	this.model.set("currentIndex",currentIndex);
+        },
+        
+        /**
+         * method to unbind all event handlers and remove the view from
+         * the DOM
+         * Marionette region manager calls close() method, before showing
+         * next view/ closing the current view
+         * @returns
+         */
+        close : function() {
+            this.stopListening();
+            this.remove();
         }
 
     });

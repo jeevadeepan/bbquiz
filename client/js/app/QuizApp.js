@@ -13,7 +13,6 @@ define( [ 'jquery', 'backbone','/js/app/models/User.js',
 	 */
 	var QuizApp = new Backbone.Marionette.Application();
 	
-	QuizApp.currentView = null;
 	
 	/**
 	 * Adding the regions of the application that need to be managed
@@ -21,7 +20,6 @@ define( [ 'jquery', 'backbone','/js/app/models/User.js',
 	QuizApp.addRegions({
 		contentRegion : '#main-content'
 	});
-	
 	
 	/**
 	 * Initialization

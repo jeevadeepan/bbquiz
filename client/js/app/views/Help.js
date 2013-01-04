@@ -46,10 +46,11 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/help.js' ],
                 /**
                  * method to unbind all event handlers and remove the view from
                  * the DOM
-                 * 
+                 * Marionette region manager calls close() method, before showing
+                 * next view/ closing the current view
                  * @returns
                  */
-                destroy : function() {
+                close : function() {
                     this.stopListening();
                     this.remove();
                 }
