@@ -51,6 +51,19 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js','i18n
                 render : function() {
                     this.$el.html(loginTemplate.login);
                     this.$el.find('input:first').focus();
+                    var self = this;
+                    setTimeout(function(){
+                        self.model.view = self;
+                        self.startButton = $("#startGame");
+                        self.model.bind("userValid", self.userValid);
+                    },1)
+                },
+                userValid: function(valid){
+                    if (valid){
+                        this.view.startButton.removeAttr("disabled");
+                    } else {
+                        this.view.startButton.attr("disabled", "true");
+                    }
                 },
 
                 /**

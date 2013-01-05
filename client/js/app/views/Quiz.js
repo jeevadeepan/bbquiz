@@ -36,9 +36,9 @@ define( [ 'jquery', 'underscore', 'backbone',
         timer : null,
         
         events : {
-    		'click .quitButton' : 'showResult',
-    		'click .nextButton' : 'validateAndShowNextQuestion',
-    		'click .passButton' : 'showNextQuestion'
+    		'click #quitButton' : 'showResult',
+    		'click #nextButton' : 'validateAndShowNextQuestion',
+    		'click #passButton' : 'showNextQuestion'
     	},
         
         /*
@@ -154,6 +154,7 @@ define( [ 'jquery', 'underscore', 'backbone',
          * @returns
          */
         showNextQuestion : function(){
+            $("#nextButton").attr("disabled","disabled");
         	var currentIndex = this.model.get("currentIndex")+1;
         	this.model.set("currentIndex",currentIndex);
         },

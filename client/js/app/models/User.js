@@ -19,6 +19,17 @@ define( [ 'jquery', 'underscore', 'backbone',  'i18n!locales/QuizText' ], functi
          */
         urlRoot : '/login',
 
+        initialize: function(){
+            this.bind("change", this.attributesChanged);
+        },
+
+        attributesChanged: function(){
+            var valid = false;
+            if ($('#inputWrapper').find('input').val().length)
+                valid = true;
+            this.trigger("userValid", valid);
+        },
+
         /**
          * validation for userName
          * 
