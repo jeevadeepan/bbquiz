@@ -38,11 +38,15 @@ define(
                             this.$el.html(QuestionTemplate.details
                                     + QuestionTemplate.questionWrapper
                                     + QuestionTemplate.answersWrapper);
-                        },
 
+                            var self = this;
+                            setTimeout(function(){
+                                self.nextButton = $("#nextButton");
+                            },1)
+                        },
                         /**
                          * show Question details
-                         * 
+                         *
                          * @returns
                          */
                         showQuestionDetails : function() {
@@ -132,6 +136,7 @@ define(
                                     break;
                                 }
                             }
+                            this.nextButton.removeAttr("disabled");
                         },
 
                         /**

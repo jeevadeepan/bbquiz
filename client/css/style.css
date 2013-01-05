@@ -367,7 +367,7 @@ body {
     margin-top: 10%;
 }
 
-#actions button, #resultActions button{
+button{
 	color:#000000 ;
     background-color: rgba(255, 255, 255, 0.8);
 	border:2px solid #555555;
@@ -375,6 +375,10 @@ body {
 	margin:5px;
     width:320px;
 
+}
+button:disabled{
+    color: #999;
+    cursor: pointer;
 }
 
 .hide{

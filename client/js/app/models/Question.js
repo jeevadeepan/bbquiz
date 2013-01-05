@@ -11,7 +11,6 @@ define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
             weight : 0,
             questionNumber : 0,
             totalQuestions : 0,
-            weight : 0,
             type : ""
         },
 
