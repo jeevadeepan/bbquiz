@@ -4,7 +4,6 @@ define(
 
             var Question = Backbone.View
                     .extend( {
-                       
                         el : '#questionWrapper',
 
                         // Define all the events here,In backbone all the events
@@ -39,14 +38,10 @@ define(
                                     + QuestionTemplate.questionWrapper
                                     + QuestionTemplate.answersWrapper);
 
-                            var self = this;
-                            setTimeout(function(){
-                                self.nextButton = $("#nextButton");
-                            },1)
                         },
                         /**
                          * show Question details
-                         *
+                         * 
                          * @returns
                          */
                         showQuestionDetails : function() {
@@ -124,9 +119,12 @@ define(
                             if (e.target.nodeName === "INPUT") {
                                 switch ($input.attr("type")) {
                                 case "radio":
-                                	$('#answersWrapper .selected').removeClass('selected');
-                                	var selectedClass = $input.is(":checked") ? "selected" : "";
-                                	$input.closest('label').addClass(selectedClass);
+                                    $('#answersWrapper .selected').removeClass(
+                                            'selected');
+                                    var selectedClass = $input.is(":checked") ? "selected"
+                                            : "";
+                                    $input.closest('label').addClass(
+                                            selectedClass);
                                     this.model.set("selectedAnswer", $input
                                             .val());
                                     break;
@@ -136,21 +134,21 @@ define(
                                     break;
                                 }
                             }
-                            this.nextButton.removeAttr("disabled");
+
                         },
 
                         /**
                          * method to unbind all event handlers and remove the
-                         * view from the DOM
-                         * Marionette region manager calls close() method, before showing
-                         * next view/ closing the current view
+                         * view from the DOM Marionette region manager calls
+                         * close() method, before showing next view/ closing the
+                         * current view
+                         * 
                          * @returns
                          */
                         close : function() {
                             this.stopListening();
-                            this.$el.html("");
+                            this.remove();
                         }
-
                     });
 
             return Question;

@@ -1,4 +1,8 @@
-define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/User.js' ],
+/**
+ * Creators:Pradeep S, Janani J Unit test cases for the model
+ */
+define(
+        [ 'jquery', 'underscore', 'backbone', '/js/app/models/User.js' ],
         function($, _, Backbone, UserModel) {
             module('Testing User Model', {
                 setup : function() {
@@ -8,26 +12,27 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/User.js' ],
                     this.userModel = null;
                 }
             });
-            
-            
+
             test('Test init properties in user model', function() {
                 equal(this.userModel.get("userName"), '',
                         'Default user name is empty');
                 notEqual(this.userModel.get("userName"), 'test',
                         'Default user name is empty');
-                equal(this.userModel.urlRoot,'/login',
-                		'urlRoot set to /login to save model to server');
-                notEqual(this.userModel.urlRoot,'','urlRoot set to /login to save model to server');
+                equal(this.userModel.urlRoot, '/login',
+                        'urlRoot set to /login to save model to server');
+                notEqual(this.userModel.urlRoot, '',
+                        'urlRoot set to /login to save model to server');
             });
 
-            test('Test setting the properties of user Model', function() {
-                this.userModel.set("userName", "$$$$");
-                equal(this.userModel.get("userName"), '$$$$',
-                        'username is set');
-                notEqual(this.userModel.get("userName"), '####',
-                        'username is set');
+            test('Test setting the properties of user Model',
+                    function() {
+                        this.userModel.set("userName", "$$$$");
+                        equal(this.userModel.get("userName"), '$$$$',
+                                'username is set');
+                        notEqual(this.userModel.get("userName"), '####',
+                                'username is set');
 
-            });
+                    });
 
             test('Testing the validate method with empty username', function() {
                 this.userModel.set("userName", "");
@@ -46,18 +51,20 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/User.js' ],
                         notEqual('Please enter User name', validate,
                                 'username is set');
 
-            });
-            
+                    });
+
             /**
              * Testing the validate method using Sinon JS spies
              */
-            test('Tesing the validate method is called after setting the username',function(){
-            	//adding spy on the set method
-            	this.spy(this.userModel,"validate");
-            	this.userModel.set("userName","$$$");
-            	ok(this.userModel.validate.calledOnce);
-            	this.userModel.set("userName","");
-            	ok(this.loginModel.validate.calledTwice);
-            });
+            test(
+                    'Tesing the validate method is called after setting the username',
+                    function() {
+                        // adding spy on the set method
+                        this.spy(this.userModel, "validate");
+                        this.userModel.set("userName", "$$$");
+                        ok(this.userModel.validate.calledOnce);
+                        this.userModel.set("userName", "");
+                        ok(this.loginModel.validate.calledTwice);
+                    });
 
         });

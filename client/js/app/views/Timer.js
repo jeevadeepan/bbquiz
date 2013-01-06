@@ -3,8 +3,8 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
 
             var Timer = Backbone.View.extend( {
 
-            	el : '#timerWrapper',
-            	
+                tagName : 'div',
+
                 timerId : null,
 
                 // Define all the events here,In backbone all the events use
@@ -19,7 +19,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
                 initialize : function() {
                     var that = this;
                     that.render();
-                    
+
                     // Update the total time
                     that.listenTo(this.model, 'change:time', function(model,
                             time) {
@@ -38,11 +38,12 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
                     that.listenTo(this.model, 'error', function(model, error) {
                         clearInterval(that.timerId);
                         alert(error);
-                    	var answers = {
-                    		userName : that.options.quizModel.get("userName"),
-                    		answeredQuestions : that.options.quizModel.get("questions").getAnswers()
-                    	};
-                        QuizApp.vent.trigger('showResult',answers);
+                        var answers = {
+                            userName : that.options.quizModel.get("userName"),
+                            answeredQuestions : that.options.quizModel.get(
+                                    "questions").getAnswers()
+                        };
+                        QuizApp.vent.trigger('showResult', answers);
                     });
                     that.initTimer();
                 },
@@ -55,7 +56,8 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
                     this.$el.html(QuizTemplate.timer);
                     var timer = $(QuizTemplate.timer());
                     var counter = $(QuizTemplate.counter( {
-                        'remainingTime' : this.model.getFormattedTime(this.model.get("totalTime"))
+                        'remainingTime' : this.model
+                                .getFormattedTime(this.model.get("totalTime"))
                     }));
                     counter.appendTo(this.$el);
                 },
@@ -74,9 +76,9 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
 
                 /**
                  * method to unbind all event handlers and remove the view from
-                 * the DOM
-                 * Marionette region manager calls close() method, before showing
-                 * next view/ closing the current view
+                 * the DOM Marionette region manager calls close() method,
+                 * before showing next view/ closing the current view
+                 * 
                  * @returns
                  */
                 close : function() {
