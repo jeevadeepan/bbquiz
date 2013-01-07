@@ -388,10 +388,11 @@ button:disabled{
 
 
 #scoreWrapper{
-	height:50px;
 	text-align:center;
 	vertical-align:middle;
-	width:99%;
+	width:80%;
+    text-align: center;
+    display: inline-block;
 }
 
 
@@ -404,12 +405,29 @@ button:disabled{
 	top:20%;
 }  */
 
-#scoreWrapper div{
+#scoreWrapper h3{
 	color:#fff;
 	font-size:18pt;
-    float:left;
+    text-align: center;
+
+
+    -webkit-stroke-width: 5.3px;
+    -webkit-stroke-color: #FFFFFF;
+    -webkit-fill-color: #FFFFFF;
+    text-shadow: 1px 0px 20px white;
+    -webkit-transition: width 0.3s; /*Safari & Chrome*/
+    transition: width 0.3s;
+    -moz-transition: width 0.3s; /* Firefox 4 */
+    -o-transition: width 0.3s; /* Opera */
+
 }
 
+#scoreWrapper h2{
+    color:#fff;
+    font-size:18pt;
+    text-align: center;
+    font-style: italic;
+}
 #questionWrapper #question{
     color:#fff;
     font-size:16pt;
