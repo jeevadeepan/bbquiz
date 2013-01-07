@@ -56,10 +56,15 @@ define( [ 'jquery', 'backbone', '/js/app/models/User.js',
     QuizApp.vent.on("showQuiz", function(user) {
         // Update user name and start quiz
         var quizModel = new QuizModel();
-        quizModel.set("userName", user.userName)
+        quizModel.set("userName", user.userName);
         var quizView = new QuizView( {
             model : quizModel
         });
+        /**
+         * reset all the regions, since we are showing same regions again
+         */
+        QuizApp.timerRegion.reset();
+        QuizApp.questionRegion.reset();
         QuizApp.contentRegion.show(quizView);
         quizModel.fetch();
     });
