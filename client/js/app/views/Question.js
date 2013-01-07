@@ -53,7 +53,7 @@ define(
                                             + "/"
                                             + this.model.get("totalQuestions"));
                             // show the question weight
-                            $questionDetailsWrapper.find('.weight').text(
+                            $questionDetailsWrapper.find('.weight').append(
                                     this.model.get("weight"));
                         },
 

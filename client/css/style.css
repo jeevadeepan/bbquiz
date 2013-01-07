@@ -319,8 +319,21 @@ body {
 }
 
 #content, #main-content {
-    text-align: center;
+   width:99%;
 }
+
+#loginWrapper{
+	width:100%;
+	text-align:center;
+}
+
+#timerWrapper{
+	width:100%;
+	text-align:center;
+}
+
+
+
 
 #main-header hgroup h1{
 	 height:102px;
@@ -406,7 +419,6 @@ button:disabled{
 #scoreWrapper div{
 	color:#fff;
 	font-size:18pt;
-	float:left;	
 }
 
 #questionWrapper #question{
@@ -475,7 +487,7 @@ button:disabled{
 }
 
 #localeWrapper{
-	font-size: 16px;
+	font-size: 20px;
 	margin-top:5%;
 	color: #fff;
 }
@@ -488,9 +500,6 @@ button:disabled{
 	width:200px;
 }
 
-#answersWrapper{
-	width:400px;
-}
 
 #quiz-content{
 	width:100%;
@@ -498,4 +507,62 @@ button:disabled{
 
 #questionWrapper{
 	height:400px;	
+}
+
+#questionWrapper #questionDetails{
+	height:40px;
+	background: black;
+}
+
+#questionWrapper #questionDetails .index,
+#questionWrapper #questionDetails .weight{
+	color:#fff;
+	font-size: 20px;
+}
+
+.index{
+	valign:middle;
+	float:left;
+	whitespace:nowrap;
+}
+
+.weight{
+	valign:middle;
+	float:right;
+	whitespace:nowrap;
+}
+
+#answersWrapper,#question{
+	width:400px !important;
+	text-align:center;
+	margin-left:300px;
+}
+
+#actionsWrapper{
+	width:100%;
+	text-align:center;
+	height:40px;
+}
+
+#actionsWrapper #quitButton
+{
+	float:left;
+}
+
+#actionsWrapper #passButton{
+	float:right;
+}
+
+#imageWrapper img{
+	height:250px;
+}
+
+#resultWrapper{
+	width:100%;
+	text-align:center;
+}
+
+#scoreWrapper{
+	height:300px;
+	text-align:center;
 }
