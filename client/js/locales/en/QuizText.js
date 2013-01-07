@@ -13,7 +13,7 @@ define({
 	quit : "Quit",
 	next : "Next",
 	pass : "Pass",
-	yourScore : "Your Score",
+	yourScore : "Your Score is",
 	restartGame : "Restart Game",
 	allQuestionsCompleted : "All Questions completed",
 	pleaseEnterUserName : "Please enter User Name",
