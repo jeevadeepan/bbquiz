@@ -29,37 +29,30 @@ define(
                 notEqual(this.userModel.get("userName"), '####','username is set');
             });
 
-            test('Testing the validate method with empty username', function() {
-                this.userModel.set("userName", "");
-                var validate = this.userModel
-                        .validate(this.userModel.attributes);
-                equal('Please enter User Name', validate, 'username is empty');
-                notEqual('', validate, 'username is empty');
-            });
-
-            test('Testing the validate method after setting username',
-                    function() {
-                        this.userModel.set("userName", "$$$");
-                        var validate = this.userModel
-                                .validate(this.userModel.attributes);
-                        equal(undefined, validate, 'username is set');
-                        notEqual('Please enter User name', validate,
-                                'username is set');
-
-                    });
+           
 
             /**
              * Testing the validate method using Sinon JS spies
              */
-            /*test(
+            test(
                     'Tesing the validate method is called after setting the username',
                     function() {
                         // adding spy on the set method
                         this.spy(this.userModel, "validate");
-                        this.userModel.set("userName", "$$$");
-                        ok(this.userModel.validate.calledOnce);
                         this.userModel.set("userName", "");
-                        ok(this.loginModel.validate.calledTwice);
-                    });*/
+                        ok(this.userModel.validate.calledOnce);
+                        this.userModel.set("userName", "dd");
+                        ok(this.userModel.validate.calledTwice);
+                    });
+            
+            test("Testing the validate error method called",function(){
+            		console.log(sinon);
+            		var spy = sinon.spy();
+            		this.userModel.listenTo(this.userModel,'error',spy);
+            		this.userModel.set("userName","");
+            		ok(spy.calledOnce);
+            		this.userModel.set("userName","dd");
+            		ok(spy.calledTwice);
+            });
 
         });
