@@ -19,14 +19,16 @@ define(
                          */
                         initialize : function() {
                             // Best practice for having reference of the view
+                        	var that = this;
                             this.render();
                             this.showQuestionDetails();
                             this.showQuestion();
                             this.showOption();
-                            this.listenTo(this.model, "error", function(model,
+                            this.listenTo(that.model, "error", function(model,
                                     error) {
                                 alert(error);
                             });
+                            QuizApp.vent.trigger("activateNextButton",true);
                         },
 
                         /*
@@ -34,10 +36,7 @@ define(
                          * this should talk to the template
                          */
                         render : function() {
-                            this.$el.html(QuestionTemplate.details
-                                    + QuestionTemplate.questionWrapper
-                                    + QuestionTemplate.answersWrapper);
-
+                            this.$el.html(QuestionTemplate.question);
                         },
                         /**
                          * show Question details
@@ -127,10 +126,12 @@ define(
                                             selectedClass);
                                     this.model.set("selectedAnswer", $input
                                             .val());
+                                    QuizApp.vent.trigger("activateNextButton",false);
                                     break;
                                 case "text":
                                     this.model.set("selectedAnswer", $input
                                             .val());
+                                    QuizApp.vent.trigger("activateNextButton",false);
                                     break;
                                 }
                             }

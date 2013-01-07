@@ -56,7 +56,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js','i18n
                         self.model.view = self;
                         self.startButton = $("#startGame");
                         self.model.bind("userValid", self.userValid);
-                    },1)
+                    },1);
                 },
                 userValid: function(valid){
                     if (valid){

@@ -27,14 +27,12 @@ define( [ 'jquery', 'underscore', 'backbone',
         // Define the element corresponding to the view here
         id : 'quiz-content',
 
-        questionView : null,
-
         events : {
             'click #quitButton' : 'showResult',
             'click #nextButton' : 'validateAndShowNextQuestion',
             'click #passButton' : 'showNextQuestion'
         },
-
+        
         /*
          * this function will be called while creating the new instance of the
          * view. All the thirdparty code corresponding to the view. should be
@@ -47,11 +45,19 @@ define( [ 'jquery', 'underscore', 'backbone',
              * Adding the regions for the timer and Question, Since they are
              * seperate views and they have to managed. To prevent Zombies
              */
-            QuizApp.addRegions( {
-                timerRegion : '#timerWrapper',
+            QuizApp.addRegions({
+            	timerRegion: '#timerWrapper',
                 questionRegion : '#questionWrapper'
             });
+            
 
+            /**
+             * Aggregated event to enable/disable the next button 
+             */
+            QuizApp.vent.on("activateNextButton",function(disable){
+            	that.toggleNextButton(disable);
+        	});
+            
             /**
              * view listens to the model,when time is set in the model it creats
              * the timer
@@ -69,10 +75,7 @@ define( [ 'jquery', 'underscore', 'backbone',
                 var question = questions.at(currentIndex);
                 question.set("questionNumber", currentIndex + 1);
                 question.set("totalQuestions", questions.length);
-                var questionView = new QuestionView( {
-                    model : question
-                });
-                QuizApp.questionRegion.show(questionView);
+                that.createQuestion(question);
             });
 
             /**
@@ -82,7 +85,6 @@ define( [ 'jquery', 'underscore', 'backbone',
                 alert(error);
                 that.showResult();
             });
-
         },
 
         /*
@@ -109,8 +111,19 @@ define( [ 'jquery', 'underscore', 'backbone',
                 model : timerModel,
                 quizModel : that.model
             });
-            console.log(QuizApp.timerRegion);
             QuizApp.timerRegion.show(timerView);
+        },
+       
+        /**
+         * create a question with given question model
+         * @param question
+         * @returns
+         */
+        createQuestion : function(question){
+        	QuizApp.questionRegion.reset();
+        	var currentQuestion = new QuestionView({
+                model : question
+            });
         },
 
         /**
@@ -149,7 +162,7 @@ define( [ 'jquery', 'underscore', 'backbone',
          * @returns
          */
         showNextQuestion : function() {
-            $("#nextButton").attr("disabled", "disabled");
+        	this.toggleNextButton(false);
             var currentIndex = this.model.get("currentIndex") + 1;
             this.model.set("currentIndex", currentIndex);
         },
@@ -164,6 +177,19 @@ define( [ 'jquery', 'underscore', 'backbone',
         close : function() {
             this.stopListening();
             this.remove();
+        },
+        
+        /**
+         * function to toggle next button
+         * @param show
+         * @returns
+         */
+        toggleNextButton: function(disable){
+        	if(disable){
+        		$("#nextButton").attr("disabled", "disabled");
+        	}else{
+        		$("#nextButton").removeAttr("disabled", "disabled");
+        	}
         }
 
     });
