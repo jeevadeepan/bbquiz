@@ -1,5 +1,5 @@
 define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/Quiz.js',
-        '/js/app/models/QuestionsCollection.js', '/js/app/views/Quiz.js' ],
+        '/js/app/collections/Questions.js', '/js/app/views/Quiz.js' ],
         function($, _, Backbone, QuizModel, QuestionsCollection, QuizView) {
 
             /**

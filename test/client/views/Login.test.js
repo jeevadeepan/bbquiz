@@ -1,4 +1,4 @@
-define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/Login.js',
+define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/User.js',
         '/js/app/views/Login.js' ], function($, _, Backbone, LoginModel,
         LoginView) {
     module('Testing Login View', {

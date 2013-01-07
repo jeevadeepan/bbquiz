@@ -39,7 +39,11 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js','i18n
                  */
                 initialize : function() {
                     this.render();
+                    this.listenTo(this.model,'change:userName',function(model,userName){
+                    	this.toggleStartGameButton(false);
+                    });
                     this.listenTo(this.model, 'error', function(model, error) {
+                    	this.toggleStartGameButton(true);
                         alert(error);
                     });
                 },
@@ -49,22 +53,13 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js','i18n
                  * should talk to the template
                  */
                 render : function() {
+                	var that = this;
                     this.$el.html(loginTemplate.login);
-                    this.$el.find('input:first').focus();
-                    var self = this;
                     setTimeout(function(){
-                        self.model.view = self;
-                        self.startButton = $("#startGame");
-                        self.model.bind("userValid", self.userValid);
+                    	 that.$el.find('input:first').focus();
                     },1);
                 },
-                userValid: function(valid){
-                    if (valid){
-                        this.view.startButton.removeAttr("disabled");
-                    } else {
-                        this.view.startButton.attr("disabled", "true");
-                    }
-                },
+                
 
                 /**
                  * function to start the model
@@ -77,7 +72,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js','i18n
                     		error : function(){
                     			alert("Please enter a valid userName");
                     			return;
-                    		}});
+                    }});
                 },
 
                 /**
@@ -104,6 +99,19 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js','i18n
                 updateLanguage : function(e){
                 	Language = $(e.target).val();
                 	//add logic to update the language and reload the app
+                },
+                
+                /**
+                 * function to enable/disable start game button
+                 * @param disabled
+                 * @returns
+                 */
+                toggleStartGameButton: function(disabled){
+                	if(disabled){
+                		this.$el.find('#startGame').attr("disabled", "disabled");
+                	}else{
+                		this.$el.find('#startGame').removeAttr("disabled");
+                	}
                 },
 
                 /**
