@@ -319,37 +319,25 @@ body {
 }
 
 #content, #main-content {
-   width:99%;
+    text-align: center;
+    width: 100%
 }
-
-#loginWrapper{
-	width:100%;
-	text-align:center;
-}
-
-#timerWrapper{
-	width:100%;
-	text-align:center;
-}
-
-
-
 
 #main-header hgroup h1{
 	 height:102px;
 	width:402px;
-	
+
      font-size: 14px;
 	 display: -webkit-box;
     -webkit-box-orient: horizontal;
     -webkit-box-pack: center;
     -webkit-box-align: center;
-       
+
     display: -moz-box;
     -moz-box-orient: horizontal;
     -moz-box-pack: center;
     -moz-box-align: center;
-        
+
     display: box;
     box-orient: horizontal;
     box-pack: center;
@@ -419,15 +407,21 @@ button:disabled{
 #scoreWrapper div{
 	color:#fff;
 	font-size:18pt;
+    float:left;
 }
 
 #questionWrapper #question{
-	color:#fff;
-	font-size:16pt
-	height:200px;
-	text-align:center;
+    color:#fff;
+    font-size:16pt;
+    text-align:center;
+    width: 80%;
 }
+#question{
+    width: 30%;
+    text-align: center;
+    display: inline-block;
 
+}
 
 #optionsWrapper div{
 	color:#fff;
@@ -487,7 +481,7 @@ button:disabled{
 }
 
 #localeWrapper{
-	font-size: 20px;
+    font-size: 16px;
 	margin-top:5%;
 	color: #fff;
 }
@@ -500,69 +494,35 @@ button:disabled{
 	width:200px;
 }
 
+#answersWrapper{
+    width:400px;
+}
 
 #quiz-content{
-	width:100%;
+    width:100%;
 }
 
 #questionWrapper{
-	height:400px;	
-}
-
-#questionWrapper #questionDetails{
-	height:40px;
-	background: black;
+    height:400px;
+    width: 70%;
+    text-align: center;
+    display: inline-block;
 }
 
 #questionWrapper #questionDetails .index,
 #questionWrapper #questionDetails .weight{
-	color:#fff;
-	font-size: 20px;
-}
+     color:#fff;
+     font-size: 20px;
+     }
+     .index{
+     valign:middle;
 
-.index{
-	valign:middle;
-	float:left;
-	whitespace:nowrap;
-}
+     float:left;
+     whitespace:nowrap;
+    }
 
-.weight{
-	valign:middle;
-	float:right;
-	whitespace:nowrap;
-}
-
-#answersWrapper,#question{
-	width:400px !important;
-	text-align:center;
-	margin-left:300px;
-}
-
-#actionsWrapper{
-	width:100%;
-	text-align:center;
-	height:40px;
-}
-
-#actionsWrapper #quitButton
-{
-	float:left;
-}
-
-#actionsWrapper #passButton{
-	float:right;
-}
-
-#imageWrapper img{
-	height:250px;
-}
-
-#resultWrapper{
-	width:100%;
-	text-align:center;
-}
-
-#scoreWrapper{
-	height:300px;
-	text-align:center;
-}
+     .weight{
+     valign:middle;
+     float:right;
+     whitespace:nowrap;
+     }
