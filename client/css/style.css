@@ -529,7 +529,7 @@ button:disabled{
 
 #questionWrapper #questionDetails .index,
 #questionWrapper #questionDetails .weight{
-     color:#fff;
+     color:#00DEFF;
      font-size: 20px;
      }
      .index{
@@ -544,3 +544,7 @@ button:disabled{
      float:right;
      whitespace:nowrap;
      }
+
+ #imageWrapper img{
+         height: 175px;
+ }
