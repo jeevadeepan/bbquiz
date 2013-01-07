@@ -31,6 +31,11 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/result.js' ],
                 render : function() {
                     this.$el.html(ResultTemplate.result);
                     this.$el.find('#score').html(this.model.get("score"));
+                    this.$el.find('#congratsHeader').append(
+                            '&nbsp;<br>' + this.model.get("userName"));
+                    this.$el.find('#answered').append(
+                            this.model.get("answeredQuestions").length + " / "
+                                    + this.model.get("totalQuestions"));
                 },
 
                 /**

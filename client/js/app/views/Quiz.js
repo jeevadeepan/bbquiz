@@ -127,7 +127,8 @@ define( [ 'jquery', 'underscore', 'backbone',
             var that = this;
             var answers = {
                 userName : that.model.get("userName"),
-                answeredQuestions : this.model.get("questions").getAnswers()
+                answeredQuestions : this.model.get("questions").getAnswers(),
+                totalQuestions : this.model.get("questions").length
             };
             QuizApp.vent.trigger('showResult', answers);
         },
