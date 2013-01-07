@@ -3,7 +3,7 @@
  */
 define( [ 'jquery', 'underscore', 'backbone' ], function($, _, Backbone) {
     var Question = Backbone.Model.extend( {
-    	
+
         // Set all the default properties here
         defaults : {
             question : "",

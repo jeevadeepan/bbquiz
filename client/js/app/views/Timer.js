@@ -41,7 +41,8 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
                         var answers = {
                             userName : that.options.quizModel.get("userName"),
                             answeredQuestions : that.options.quizModel.get(
-                                    "questions").getAnswers()
+                                    "questions").getAnswers(),
+                            totalQuestions : this.model.get("questions").length
                         };
                         QuizApp.vent.trigger('showResult', answers);
                     });
