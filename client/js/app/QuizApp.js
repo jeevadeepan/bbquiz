@@ -15,10 +15,13 @@ define( [ 'jquery', 'backbone','/js/app/models/User.js',
 	
 	
 	/**
-	 * Adding the regions of the application that need to be managed
+	 * Adding the regions of the application that need to be managed,
+     * Adding the regions for the timer and Question(which will be part of Quiz View)
 	 */
 	QuizApp.addRegions({
-		contentRegion : '#main-content'
+		contentRegion : '#main-content',
+        timerRegion: '#timerWrapper',
+        questionRegion : '#questionWrapper'
 	});
 	
 	/**
