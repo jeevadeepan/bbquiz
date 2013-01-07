@@ -41,15 +41,6 @@ define( [ 'jquery', 'underscore', 'backbone',
         initialize : function() {
             var that = this;
             this.render();
-            /**
-             * Adding the regions for the timer and Question, Since they are
-             * seperate views and they have to managed. To prevent Zombies
-             */
-            QuizApp.addRegions({
-            	timerRegion: '#timerWrapper',
-                questionRegion : '#questionWrapper'
-            });
-            
 
             /**
              * Aggregated event to enable/disable the next button 
@@ -137,8 +128,7 @@ define( [ 'jquery', 'underscore', 'backbone',
                 userName : that.model.get("userName"),
                 answeredQuestions : this.model.get("questions").getAnswers()
             };
-            QuizApp.timerRegion.close();
-            QuizApp.questionRegion.close();
+
             QuizApp.vent.trigger('showResult', answers);
         },
 
@@ -175,6 +165,8 @@ define( [ 'jquery', 'underscore', 'backbone',
          * @returns
          */
         close : function() {
+            QuizApp.timerRegion.close();
+            QuizApp.questionRegion.close();
             this.stopListening();
             this.remove();
         },
