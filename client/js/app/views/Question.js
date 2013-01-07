@@ -4,7 +4,7 @@ define(
 
             var Question = Backbone.View
                     .extend( {
-                        el : '#questionWrapper',
+                        tagName : 'div',
 
                         // Define all the events here,In backbone all the events
                         // use event delegation
@@ -19,16 +19,13 @@ define(
                          */
                         initialize : function() {
                             // Best practice for having reference of the view
-                        	var that = this;
+                            var that = this;
                             this.render();
-                            this.showQuestionDetails();
-                            this.showQuestion();
-                            this.showOption();
                             this.listenTo(that.model, "error", function(model,
                                     error) {
                                 alert(error);
                             });
-                            QuizApp.vent.trigger("activateNextButton",true);
+                            QuizApp.vent.trigger("activateNextButton", true);
                         },
 
                         /*
@@ -37,6 +34,9 @@ define(
                          */
                         render : function() {
                             this.$el.html(QuestionTemplate.question);
+                            this.showQuestionDetails();
+                            this.showQuestion();
+                            this.showOption();
                         },
                         /**
                          * show Question details
@@ -126,12 +126,14 @@ define(
                                             selectedClass);
                                     this.model.set("selectedAnswer", $input
                                             .val());
-                                    QuizApp.vent.trigger("activateNextButton",false);
+                                    QuizApp.vent.trigger("activateNextButton",
+                                            false);
                                     break;
                                 case "text":
                                     this.model.set("selectedAnswer", $input
                                             .val());
-                                    QuizApp.vent.trigger("activateNextButton",false);
+                                    QuizApp.vent.trigger("activateNextButton",
+                                            false);
                                     break;
                                 }
                             }

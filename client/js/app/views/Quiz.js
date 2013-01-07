@@ -32,7 +32,7 @@ define( [ 'jquery', 'underscore', 'backbone',
             'click #nextButton' : 'validateAndShowNextQuestion',
             'click #passButton' : 'showNextQuestion'
         },
-        
+
         /*
          * this function will be called while creating the new instance of the
          * view. All the thirdparty code corresponding to the view. should be
@@ -43,12 +43,12 @@ define( [ 'jquery', 'underscore', 'backbone',
             this.render();
 
             /**
-             * Aggregated event to enable/disable the next button 
+             * Aggregated event to enable/disable the next button
              */
-            QuizApp.vent.on("activateNextButton",function(disable){
-            	that.toggleNextButton(disable);
-        	});
-            
+            QuizApp.vent.on("activateNextButton", function(disable) {
+                that.toggleNextButton(disable);
+            });
+
             /**
              * view listens to the model,when time is set in the model it creats
              * the timer
@@ -104,17 +104,18 @@ define( [ 'jquery', 'underscore', 'backbone',
             });
             QuizApp.timerRegion.show(timerView);
         },
-       
+
         /**
          * create a question with given question model
+         * 
          * @param question
          * @returns
          */
-        createQuestion : function(question){
-        	QuizApp.questionRegion.reset();
-        	var currentQuestion = new QuestionView({
+        createQuestion : function(question) {
+            var currentQuestion = new QuestionView( {
                 model : question
             });
+            QuizApp.questionRegion.show(currentQuestion);
         },
 
         /**
@@ -128,7 +129,6 @@ define( [ 'jquery', 'underscore', 'backbone',
                 userName : that.model.get("userName"),
                 answeredQuestions : this.model.get("questions").getAnswers()
             };
-
             QuizApp.vent.trigger('showResult', answers);
         },
 
@@ -152,7 +152,7 @@ define( [ 'jquery', 'underscore', 'backbone',
          * @returns
          */
         showNextQuestion : function() {
-        	this.toggleNextButton(false);
+            this.toggleNextButton(false);
             var currentIndex = this.model.get("currentIndex") + 1;
             this.model.set("currentIndex", currentIndex);
         },
@@ -169,19 +169,21 @@ define( [ 'jquery', 'underscore', 'backbone',
             QuizApp.questionRegion.close();
             this.stopListening();
             this.remove();
+            this.model.destroy();
         },
-        
+
         /**
          * function to toggle next button
+         * 
          * @param show
          * @returns
          */
-        toggleNextButton: function(disable){
-        	if(disable){
-        		$("#nextButton").attr("disabled", "disabled");
-        	}else{
-        		$("#nextButton").removeAttr("disabled", "disabled");
-        	}
+        toggleNextButton : function(disable) {
+            if (disable) {
+                $("#nextButton").attr("disabled", "disabled");
+            } else {
+                $("#nextButton").removeAttr("disabled", "disabled");
+            }
         }
 
     });

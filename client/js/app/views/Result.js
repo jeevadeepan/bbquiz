@@ -9,7 +9,8 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/result.js' ],
                 // Define all the events here,In backbone all the events use
                 // event delegation
                 events : {
-                    'click #restartGame' : 'restartQuiz'
+                    'click #restartGame' : 'restartQuiz',
+                    'click #playAgain' : 'playAgain'
                 },
 
                 /*
@@ -38,19 +39,25 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/result.js' ],
                  * @returns
                  */
                 restartQuiz : function() {
-                	QuizApp.vent.trigger("showLogin");
+                    QuizApp.vent.trigger("showLogin");
+                },
+
+                playAgain : function() {
+                    var that = this;
+                    QuizApp.vent.trigger("replayQuiz");
                 },
 
                 /**
                  * method to unbind all event handlers and remove the view from
-                 * the DOM
-                 * Marionette region manager calls close() method, before showing
-                 * next view/ closing the current view
+                 * the DOM Marionette region manager calls close() method,
+                 * before showing next view/ closing the current view
+                 * 
                  * @returns
                  */
                 close : function() {
                     this.stopListening();
                     this.remove();
+                    this.model.destroy();
                 }
 
             });

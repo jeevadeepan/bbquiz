@@ -84,6 +84,7 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
                 close : function() {
                     this.stopListening();
                     this.remove();
+                    this.model.destroy();
                 }
 
             });
