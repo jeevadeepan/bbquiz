@@ -549,13 +549,14 @@ button:disabled{
          height: 175px;
  }
  #resultActions{
- 	width:60%;
+ 	width:40%;
  	display:inline-block;
  	text-align: center;
- 	margin-left:36%;
  }
  #resultActions button{
  		clear:both;
  		display:block;
  		margin-top:1%;
+        text-align: center;
+        display: inline-block;
  }
