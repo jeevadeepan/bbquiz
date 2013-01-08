@@ -8,9 +8,9 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/Quiz.js',
             module('Testing Quiz View, bound to model/collection', {
                 setup : function() {
                     this.quizModel = new QuizModel();
-                    this.quizView = new QuizView( {
+                    this.quizView = new QuizView({
                         model : this.quizModel,
-                        collection : new QuestionsCollection( [])
+                        collection : new QuestionsCollection([])
                     });
                 },
                 teardown : function() {
