@@ -102,7 +102,7 @@ define(
                                                 });
                                 break;
                             case "fillin":
-                                answersHtml += '<div id="inputWrapper"><input type="text" placeholder="Enter your anser" /></div>';
+                                answersHtml += '<div id="inputWrapper"><input type="text" placeholder="Enter your answer" /></div>';
                                 break;
                             }
                             $answerWrapper.html(answersHtml);

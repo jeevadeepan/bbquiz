@@ -4,12 +4,8 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/User.js',
     module('Testing Login View ', {
         setup : function() {
             this.userModel = new UserModel();
-            this.loginView = new LoginView( {
-                model : this.userModel
-            });
         },
         teardown : function() {
-            this.loginView = null;
             this.loginModel = null;
         }
     });
@@ -19,12 +15,19 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/User.js',
          * Neeed to improve it using Sinon JS or using asynchronous start() and
          * stop () methods of Quinit , Spy it and test the call backs
          */
-        deepEqual(this.loginView.model, this.userModel,
+    	 var that = this;
+    	 var init = LoginView.prototype.initialize;
+    	 LoginView.prototype.initialize = function() {
+    	        that.spy(this, 'startQuiz');
+    	        init.apply(this,arguments);
+    	 };
+    	 this.loginView = new LoginView(this.userModel);
+    	 console.log(this.loginView);
+         deepEqual(this.loginView.model, this.userModel,
                 "login view with model is initialized");
-        this.spy(this.loginView, "startQuiz");
-        console.log(this.loginView.$el.find('#startGame'));
-        this.loginView.$el.find('#startGame').trigger('click');
-        ok(this.loginView.startQuiz.calledOnce);
+         console.log(this.loginView.$el.find('#startGame'));
+         this.loginView.$el.find('#startGame').trigger('click');
+         ok(this.loginView.startQuiz.calledOnce);
     });
 
 });

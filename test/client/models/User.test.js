@@ -6,6 +6,10 @@ define(
         function($, _, Backbone, UserModel) {
             module('Testing User Model', {
                 setup : function() {
+                    this.server = sinon.fakeServer.create();
+                    this.server.respondWith("GET", "/login",
+                        [200, { "Content-Type": "application/json" },
+                        '{ "userName": "test" }']);
                     this.userModel = new UserModel();
                 },
                 teardown : function() {
@@ -35,8 +39,7 @@ define(
             /**
              * Testing the validate method using Sinon JS spies
              */
-            test(
-                    'Tesing the validate method is called after setting the username',
+            test('Tesing the validate method is called after setting the username',
                     function() {
                         // adding spy on the set method
                         this.spy(this.userModel, "validate");
@@ -46,13 +49,21 @@ define(
                         ok(this.userModel.validate.calledTwice);
                     });
 
-            test("Testing the validate error method called", function() {
-                var spy = sinon.spy();
-                this.userModel.listenTo(this.userModel, 'error', spy);
-                this.userModel.set("userName", "");
-                ok(spy.calledOnce);
-                this.userModel.set("userName", "dd");
-                ok(spy.calledTwice);
+            test("Testing the validate error method called", 
+            		function() {
+                		var spy = sinon.spy();
+                		this.userModel.listenTo(this.userModel, 'error', spy);
+                		this.userModel.set("userName", "");
+                		ok(spy.calledOnce);
+                		this.userModel.set("userName", "dd");
+                		ok(!spy.calledTwice);
+            });
+            
+            test("Testing fetch method of the model", 
+            		function(){
+            		this.userModel.fetch();
+            		this.server.respond();
+            		equal("test",this.userModel.get("userName"),"username is equal");
             });
 
         });
