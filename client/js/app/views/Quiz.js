@@ -165,8 +165,8 @@ define( [ 'jquery', 'underscore', 'backbone',
          * @returns
          */
         close : function() {
-            QuizApp.timerRegion.close();
-            QuizApp.questionRegion.close();
+            QuizApp.timerRegion.reset();
+            QuizApp.questionRegion.reset();
             this.stopListening();
             this.remove();
             this.model.destroy();
