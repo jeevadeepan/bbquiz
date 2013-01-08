@@ -63,8 +63,6 @@ define( [ 'jquery', 'backbone', '/js/app/models/User.js',
         /**
          * reset all the regions, since we are showing same regions again
          */
-        QuizApp.timerRegion.reset();
-        QuizApp.questionRegion.reset();
         QuizApp.contentRegion.show(quizView);
         quizModel.fetch();
     });
@@ -80,8 +78,6 @@ define( [ 'jquery', 'backbone', '/js/app/models/User.js',
         /**
          * reset all the regions, since we are showing same regions again
          */
-        QuizApp.timerRegion.reset();
-        QuizApp.questionRegion.reset();
         QuizApp.contentRegion.show(quizView);
         quizModel.updateQuizProps();
     });
