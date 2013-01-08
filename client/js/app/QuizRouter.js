@@ -1,6 +1,6 @@
 /*global define */
 
-define( [ 'jquery', 'backbone',  '/js/app/QuizApp.js' ,'lib/backbone.routefilter.min' ], function($,
+define( [ 'jquery', 'backbone',  '/js/app/QuizApp.js'  ], function($,
         Backbone, QuizApp) {
     var QuizRouter = Backbone.Router.extend( {
 

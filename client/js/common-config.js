@@ -20,7 +20,6 @@ function includeCommonConfig() {
             handlebarslib : {
                 exports : 'Handlebars'
             },
-            'lib/backbone.routefilter.min' : [ 'backbone' ],
             'lib/backbone.marionette.min' : [ 'backbone' ]
         }
     });
