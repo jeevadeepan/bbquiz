@@ -37,7 +37,6 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
 
                     that.listenTo(this.model, 'error', function(model, error) {
                         clearInterval(that.timerId);
-                        alert(error);
                         var answers = {
                             userName : that.options.quizModel.get("userName"),
                             answeredQuestions : that.options.quizModel.get(

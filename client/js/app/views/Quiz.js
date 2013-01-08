@@ -17,7 +17,7 @@ define( [ 'jquery', 'underscore', 'backbone',
         '/js/app/models/Quiz.js', '/js/app/models/Timer.js',
         '/js/app/views/Login.js', '/js/app/views/Question.js',
         '/js/app/views/Timer.js', '/js/app/views/Result.js',
-        '/js/app/collections/Questions.js', '/js/app/Models/Answer.js',
+        '/js/app/collections/Questions.js', '/js/app/models/Answer.js',
         '/js/app/templates/quiz.js' ], function($, _, Backbone, Questions,
         QuestionModel, QuizModel, TimerModel, LoginView, QuestionView,
         TimerView, ResultView, QuestionsCollection, Answer, QuizTemplate) {
@@ -73,7 +73,6 @@ define( [ 'jquery', 'underscore', 'backbone',
              * validation error if all the questions are answered
              */
             this.listenTo(that.model, "error", function(model, error) {
-                alert(error);
                 that.showResult();
             });
         },
