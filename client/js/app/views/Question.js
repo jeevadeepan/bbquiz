@@ -20,7 +20,6 @@ define(
                         initialize : function() {
                             // Best practice for having reference of the view
                             var that = this;
-                            this.render();
                             this.listenTo(that.model, "error", function(model,
                                     error) {
                                 alert(error);
@@ -149,7 +148,6 @@ define(
                          * @returns
                          */
                         close : function() {
-                            this.stopListening();
                             this.remove();
                         }
                     });

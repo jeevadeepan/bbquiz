@@ -38,7 +38,6 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js','i18n
                  * view. should be initialized here
                  */
                 initialize : function() {
-                    this.render();
                     this.listenTo(this.model,'change:userName',function(model,userName){
                     	this.toggleStartGameButton(false);
                     });
@@ -122,7 +121,6 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/login.js','i18n
                  * @returns
                  */
                 close : function() {
-                    this.stopListening();
                     this.remove();
                 }
 

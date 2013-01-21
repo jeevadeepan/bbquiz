@@ -21,7 +21,6 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/result.js' ],
                 initialize : function() {
                     // Best practice for having reference of the view
                     var that = this;
-                    that.render();
                 },
 
                 /*
@@ -60,7 +59,6 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/result.js' ],
                  * @returns
                  */
                 close : function() {
-                    this.stopListening();
                     this.remove();
                     this.model.destroy();
                 }

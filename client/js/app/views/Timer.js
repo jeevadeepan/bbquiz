@@ -18,7 +18,6 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
                  */
                 initialize : function() {
                     var that = this;
-                    that.render();
 
                     // Update the total time
                     that.listenTo(this.model, 'change:time', function(model,
@@ -82,7 +81,6 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/templates/quiz.js' ],
                  * @returns
                  */
                 close : function() {
-                    this.stopListening();
                     this.remove();
                     this.model.destroy();
                 }

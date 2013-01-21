@@ -40,7 +40,6 @@ define( [ 'jquery', 'underscore', 'backbone',
          */
         initialize : function() {
             var that = this;
-            this.render();
 
             /**
              * Aggregated event to enable/disable the next button
@@ -50,7 +49,7 @@ define( [ 'jquery', 'underscore', 'backbone',
             });
 
             /**
-             * view listens to the model,when time is set in the model it creats
+             * view listens to the model,when time is set in the model it creates
              * the timer
              */
             this.listenTo(that.model, "change:time", function(model, time) {
@@ -167,7 +166,6 @@ define( [ 'jquery', 'underscore', 'backbone',
         close : function() {
             QuizApp.timerRegion.reset();
             QuizApp.questionRegion.reset();
-            this.stopListening();
             this.remove();
             this.model.destroy();
         },
