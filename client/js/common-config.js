@@ -1,3 +1,7 @@
+/**
+ * Configuration file for the application.
+ * If the plugins depend on other libraries like jQuery or Backbone add them to shim
+ */
 function includeCommonConfig() {
     require.config( {
         baseUrl : '/js',
@@ -20,7 +24,8 @@ function includeCommonConfig() {
             handlebarslib : {
                 exports : 'Handlebars'
             },
-            'lib/backbone.marionette.min' : [ 'backbone' ]
+            'lib/backbone.marionette.min' : [ 'backbone' ],
+            'lib/rivets.min.js' : ['jquery']
         }
     });
     
