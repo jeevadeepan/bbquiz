@@ -22,10 +22,8 @@ define( [ 'jquery', 'underscore', 'backbone', '/js/app/models/User.js',
     	        init.apply(this,arguments);
     	 };
     	 this.loginView = new LoginView(this.userModel);
-    	 console.log(this.loginView);
          deepEqual(this.loginView.model, this.userModel,
                 "login view with model is initialized");
-         console.log(this.loginView.$el.find('#startGame'));
          this.loginView.$el.find('#startGame').trigger('click');
          ok(this.loginView.startQuiz.calledOnce);
     });
